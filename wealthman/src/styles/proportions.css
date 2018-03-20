@@ -1,0 +1,491 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.page {
+    width: 100vw;
+    max-width: 1920px;
+    min-width: 1024px;
+    background: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+section.content {
+  background-color: white;
+  padding: 50px 0;
+  flex: 1;
+}
+
+body {
+  width: 100%;
+  overflow-x: hidden !important;
+  margin: 0;
+  overflow-x: hidden !important;
+}
+/**
+ * Top Navigation
+ */
+
+.container {
+    max-width: 1200px;
+    min-width: 1024px;
+    overflow-y: auto;
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+h1 {
+  font-size: 60px;
+  font-weight: 700;
+  color: #d73a40;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+h4.login {
+  color: #d73a40 !important;
+  margin: 28px 0;
+  cursor: pointer;
+  float: right;
+}
+
+
+.logo {
+  width: 333px;
+  height: 28px;
+  margin: 28px 0;
+  cursor: pointer;
+}
+
+.userpic {
+  width: 28px;
+  height: 28px;
+  margin: 28px 0 28px 28px;
+  background: url(../img/userpic.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.userframe {
+  width: 120px;
+  height: 120px;
+}
+
+.header {
+  width: 100%;
+  height: 84px;
+  background-color: #0d1833;
+  z-index: 100;
+}
+
+.user-content {
+  width: 87%;
+  float: left;
+  padding: 0 30px 0 0;
+}
+
+.user-menu {
+  width: 12%;
+  height: 50vh;
+  float: left;
+  padding: 0 0 0 15px;
+  border-left: 1px solid black;
+}
+
+button.link {
+  color: black;
+  font-size: 18px;
+  line-height: 20px;
+  margin: 7px 0;
+  padding-left: 20px;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  opacity: .7;
+  font-family: 'Circe-Light';
+}
+button.link:hover {
+  opacity: 1;
+}
+
+button.link.active {
+  font-weight: 700;
+  border-left: 4px solid #d73a40;
+  padding-left: 16px !important;
+  opacity: 1;
+}
+
+button.sort {
+  font-family: 'Circe-Regular';
+  font-weight: 700;
+}
+button.sort.asc::after {
+  background: url(/assets/images/arrow_up.png);
+}
+button.sort.desc::after {
+  background: url(/assets/images/arrow_down.png);
+}
+button.sort.asc::after, button.sort.desc::after {
+  width: 12px;
+  height: 8px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: .9;
+  margin: 7px 0 0 3px;
+  content: "";
+  float: right;
+}
+
+button.invest {
+  color: #39a9dc;
+  font-size: 22px;
+  line-height: 22px;
+  margin: 20px 0;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  opacity: .7;
+  font-family: 'Circe-Light';
+}
+button.invest:hover {
+  opacity: 1;
+}
+
+
+
+section.balance {
+  width: 100%;
+  min-height: 40px;
+  overflow-y: auto;
+  padding-top: 9px;
+  border-top: 1px solid #d3d3d3;
+}
+section.balance section.address {
+  width: 100%;
+  overflow-y: auto;
+  padding: 10px 20px;
+  border-top: 1px dashed #a7aab1;
+  background-color: #f5f5f5;
+  font-family: Circe-Regular;
+  font-weight: 200;
+}
+section.balance section.address h4 {
+  width: 70%;
+  line-height: 30px;
+  margin-left: 15%;
+  font-size: 18px;
+  font-family: Circe-Regular;
+  text-align: center;
+  background-color: white;
+  border: 1px solid #a7aab1;
+  border-radius: 3px;
+  font-weight: 700;
+}
+section.balance section.address input[type="text"] {
+  width: 70%;
+  height: 32px;
+  margin-left: 15%;
+  font-size: 18px;
+  font-family: Circe-Regular;
+  text-align: center;
+  border: 1px solid #a7aab1;
+  border-radius: 3px;
+  font-weight: 700;
+}
+
+section.portfolio {
+  width: 100%;
+  height: 180px;
+  padding: 20px;
+  margin: 15px 0;
+  border: 2px solid #39a9dc;
+  border-radius: 12px;
+
+  font-size: 18px;
+  line-height: 46px;
+  color: #1d1d1d;
+}
+.border-left {
+  border-left: 1px solid #a7aab1;
+  padding-left: 20px
+}
+.padding-right {
+    padding-right: 60px;
+}
+
+.graph {
+  width: 100%;
+  height: 140px;
+  background: url(../img/graph1.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+section.algorithm {
+  width: 80%;
+  /* max-height: 240px; */
+  overflow-y: auto;
+  padding: 10px 0 0 0;
+  margin: 15px 0;
+  border: 1px solid #d73a40;
+  border-radius: 12px;
+
+  font-size: 18px;
+  /* line-height: 29px; */
+  color: #1d1d1d;
+}
+section.algorithm section.main {
+  height: 150px;
+}
+section.algorithm section.main .creator {
+  width: 10%;
+  padding: 0 10px;
+  float: left;
+}
+section.algorithm .userpic {
+  width: 41.25px;
+  height: 41.25px;
+  margin: auto;
+  background: url(../img/userpic_inv.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+section.algorithm section.main .creator .name {
+  width: 100%;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+section.algorithm section.social {
+  border-top: 1px dashed #a7aab1;
+  height: 34px;
+}
+section.algorithm section.social button.like,
+section.algorithm section.social button.comment,
+section.algorithm section.social button.follow {
+  color: #d73a40;
+  height: 26px;
+  padding: 2px 8px;
+  margin: 4px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 3px;
+  background-color: none;
+  cursor: pointer;
+}
+section.algorithm section.social button.like:hover,
+section.algorithm section.social button.comment:hover,
+section.algorithm section.social button.follow:hover {
+  background-color: rgba(215, 58, 64, .2);
+}
+section.algorithm section.social button.like::after {
+  width: 18px !important;
+  height: 18px !important;
+  margin: 0 8px 0 0 !important;
+  background: url(../img/like.png);
+}
+section.algorithm section.social button.comment::after {
+  background: url(../img/comment.png);
+}
+section.algorithm section.social button.follow::after {
+  background: url(../img/follow.png);
+}
+section.algorithm section.social button.like::after,
+section.algorithm section.social button.comment::after,
+section.algorithm section.social button.follow::after {
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* opacity: .9; */
+  margin: 1px 8px 0 0;
+  content: "";
+  float: left;
+}
+
+
+section.algorithm section.comments {
+  overflow-y: auto;
+}
+section.algorithm section.comments section.comment {
+  border-top: 1px solid #a7aab1;
+  padding: 10px 20px;
+  overflow-y: auto;
+}
+section.algorithm section.comments section.comment .name {
+  font-family: Circe-Regular;
+  color: #a7aab1;
+  margin-left: -15px;
+}
+
+section.algorithm h1.numbers {
+    font-family: Circe-ExtraLight;
+    color: #1d1d1d;
+    font-size: 75px;
+    font-weight: 100;
+    line-height: 75px;
+    margin: 12px 0 0 0;
+}
+section.algorithm h2.numbers {
+    font-family: Circe-ExtraLight;
+    color: #1d1d1d;
+    font-size: 50px;
+    font-weight: 100;
+    line-height: 50px;
+    margin: 0;
+}
+
+p, body {
+  /* font-family: system-ui !important; */
+}
+p.deposit {
+  color: green;
+  text-decoration: underline;
+  cursor: pointer;
+}
+p.deposit.active {
+  font-family: Circe-Regular;
+  font-weight: 700;
+  text-decoration: none;
+}
+p.withdraw {
+  color: red;
+  text-decoration: underline;
+  cursor: pointer;
+}
+p.withdraw.active {
+  font-family: Circe-Regular;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+
+
+select, option {
+  width: 280px;
+  height: 30px;
+  font-size: 16px;
+  line-height: 26px;
+  font-family: Circe-Light;
+  float: left;
+}
+button.login {
+  color: white;
+  font-family: Circe-Light;
+  text-transform: uppercase;
+  font-size: 16px;
+  width: 120px;
+  height: 30px;
+  border-radius: 20px;
+  background-color: #d73a40;
+  float: left;
+  margin: 0 0 0 15px;
+  padding-top: 4px;
+}
+
+.left {
+  float: left !important;
+}
+.right {
+  float: right !important;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.text-bold {
+  font-family: 'Circe-Regular';
+  font-weight: 700;
+}
+
+.half {
+  width: 50%;
+  float: left;
+}
+
+.third {
+  width: 33.33%;
+  float: left;
+}
+
+.two-third {
+  width: 66.66%;
+  float: left;
+}
+
+.fourth {
+  width: 25%;
+  float: left;
+}
+
+.three-fourth {
+  width: 75%;
+  float: left;
+}
+
+.fifth {
+  width: 20%;
+  float: left;
+}
+
+.two-fifth {
+  width: 40%;
+  float: left;
+}
+
+.four-fifth {
+  width: 80%;
+  float: left;
+}
+
+.sixth {
+  width: 16.666666%;
+  float: left;
+}
+
+.five-sixth {
+  width: 83.333333%;
+  float: left;
+}
+
+.eight {
+  width: 12.5%;
+  float: left;
+}
+
+.seven-eight {
+  width: 87.5%;
+  float: left;
+}
+
+.tenth {
+  width: 10%;
+  float: left;
+}
