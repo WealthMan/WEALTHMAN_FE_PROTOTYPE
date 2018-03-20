@@ -1,0 +1,16 @@
+# Folders
+build/
+.idea/
+log/
+out/
+
+# Files
+*.ids
+*.iws
+*.iml
+*.ipr
+*.log
+
+# OS-specific files
+[Tt]humbs.db
+*.DS_Store
