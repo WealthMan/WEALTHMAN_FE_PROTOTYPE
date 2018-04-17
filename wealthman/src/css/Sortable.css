@@ -1,0 +1,159 @@
+ul.sortable {
+  padding: 0;
+}
+ul.sortable li {
+  width: 100%;
+  margin: auto;
+  overflow-y: auto;
+  border-top: 1px solid #e7e7ea;
+  padding: 12px 0;
+  cursor: pointer;
+}
+ul.sortable li.titles {
+  cursor: default;
+}
+
+ul.sortable li .circle {
+  width: 40px;
+  height: 40px;
+  margin: 0 20px 0 0;
+}
+
+ul.sortable li button {
+  max-width: calc(100% - 11px);
+  font-weight: 600;
+  color: #48a8da;
+  margin: 0;
+  margin-right: -15px;
+  text-align: left;
+}
+ul.sortable li button.asc,
+ul.sortable li button.desc {
+  font-weight: 800;
+  padding: 0px;
+}
+ul.sortable li button.asc::after {
+  background: url(../img/buttons/arrow_up_blue.png);
+}
+ul.sortable li button.desc::after {
+  background: url(../img/buttons/arrow_down_blue.png);
+}
+ul.sortable li button.asc::after,
+ul.sortable li button.desc::after {
+  width: 9px;
+  height: 6px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: .9;
+  margin: 11px 0 0 5px;
+  content: "";
+  float: right;
+}
+
+ul.sortable li .none {
+  width: 60px;
+  height: 10px;
+  float: left;
+  margin: 0;
+}
+
+ul.sortable li * {
+  color: #747386;
+  font-size: 18px;
+  line-height: 25px;
+  overflow-y: auto;
+  float: left;
+  margin-left: 15px;
+}
+
+ul.sortable li .number {
+  width: 30px;
+}
+ul.sortable li .name {
+  width: 100px;
+}
+
+ul.sortable li .money {
+  width: 130px;
+}
+ul.sortable li .investors {
+  width: 120px;
+}
+ul.sortable li .company {
+  width: 180px;
+}
+
+ul.sortable li .date {
+  width: 110px;
+}
+ul.sortable li .id {
+  width: 70px;
+}
+ul.sortable li .value {
+  width: 120px;
+}
+ul.sortable li .type {
+  width: 70px;
+}
+ul.sortable li .days {
+  width: 140px;
+}
+ul.sortable li .kyc {
+  width: 70px;
+}
+
+ul.sortable li .number {
+  width: 30px;
+}
+ul.sortable li .alg,
+ul.sortable li .instrument {
+  width: 150px;
+}
+ul.sortable li .profit {
+  width: 80px;
+}
+ul.sortable li .status {
+  width: 100px;
+}
+ul.sortable li .cost {
+  width: 75px;
+}
+ul.sortable li .rating {
+  width: 80px;
+}
+ul.sortable li .aum {
+  width: 65px;
+}
+ul.sortable li .assets,
+ul.sortable li .profit {
+  width: 105px;
+}
+ul.sortable li .initial,
+ul.sortable li .output {
+  width: 105px;
+}
+ul.sortable li .annual {
+  width: 105px;
+}
+ul.sortable li .clients {
+  width: 70px;
+}
+
+.last {
+  float: right !important;
+  text-align: right !important;
+  padding-right: 15px;
+}
+.first {
+  /* margin: 0 !important; */
+}
+.last button {
+  float: right !important;
+  text-align: right !important;
+  padding-right: 15px !important;
+}
+
+a.no-margin {
+  margin: 0;
+  width: 100%;
+}
