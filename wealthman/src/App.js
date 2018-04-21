@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import Loadable from 'react-loadable';
+
 import logoWhite from './logo.svg';
 import logoBlue from './logo_blue.svg';
-import './css/App.css';
 import './css/main.css';
 
 class App extends Component {
@@ -9,149 +12,213 @@ class App extends Component {
     super(props);
     this.state = {
       user: -1,
-      login: "", password: "", loginError: false,
+      login: "",
+      password: "",
 
-      users: [
-        {
-          id: 0,
-          name: "John",
-          surname: "Galt"
-        },
-      ],
-      currentPage: "login",
+      currentPage: "requests",
+      currentManager: 0,
+      currentInvestor: 0,
+      currentAlgorythm: 0,
+      currentPortfolio: 0,
+      currentRequest: 0,
+
+      currentAccountPage: "personal",
+      currentPortfoliosPage: "active",
+      currentAlgorythmsPage: "uploaded",
+
+      currentCurrency: "USD",
+      currentCurrencyPrices: {
+        USD: 1,
+        BTC: 6848.77,
+        ETH: 415.132,
+        XRP: 0.491838,
+        BCH: 651.954,
+        LTC: 113.974,
+      },
+
       prevousPages: [],
 
-      loggedLinks: ["contracts", "investment", "documents"],
-      unloggedLinks: ["about us", "origin", "login", "invest"],
-      footerLinks: ["about us", "legal", "contacts", "methodology", "press", "help center", "blog"],
+      loggedInvestorLinks: ["portfolios", "managers", "account", "logout"],
+      loggedManagerLinks: ["requests", "portfolios", "account", "algorythms", "logout"],
+      loggedSuplierLinks: ["some page"],
+      unloggedLinks: ["about us", "faq", "contact", "login"],//, "login"],//, "invest"],
 
-      currentManager: -1,
-      currentAlgorythm: -1,
-
+      investors: [
+        {
+          type: "investor",
+          id: 0,
+          name: "Kisa",
+          surname: "Vorobyaninov",
+          img: "0.jpg",
+          age: 36,
+          email: "vorobyaninov@mail.ru",
+          kyc: false,
+          registered: "19.03.2018",
+        },
+        {
+          type: "investor",
+          id: 1,
+          name: "Jim",
+          surname: "Taggart",
+          img: "1.jpg",
+          age: 31,
+          email: "jim@taggart-transcontinental.us",
+          kyc: true,
+          registered: "20.03.2017",
+        },
+        {
+          type: "investor",
+          id: 2,
+          name: "John",
+          surname: "Bolton",
+          img: "2.jpg",
+          age: 25,
+          email: "bolton@mail.com",
+          kyc: true,
+          registered: "08.11.2017",
+        },
+      ],
       managers: [
         {
-          id: 0,
-          name: "Ostap",
-          surname: "Bender",
-          rating: 10,
-          img: "0.jpg",
-          company: "12 chairs"
-        },
-        {
-          id: 1,
-          name: "Carlos",
-          surname: "Matos",
+          type: "manager",
+          id: 5,
+          name: "Andrey",
+          surname: "Morozov",
+          age: 28,
+          img: "5.jpg",
+          company: 5,
+          money: 97000,
+          methodology: "VAR method",
+          biography: "KEF HOLDINGS, Business Analyst. DIFC, Dubai, UAE.                                                                       September 2016 – August 2017 • Engaged in financial modeling, transaction due diligence, and investment portfolio performance tracking  • Conducted detailed due diligence on the country, market, competitive environment and financial issues • Conducted regular financial research to stay apprised about global economy and global financial markets • Represented the firm's commercial interests while leading sales, tender contract negotiations, and business development • Worked on projects covering strategy formulation, new project investments, and growth opportunities for KEF Infra GO GOODSCOUT, Executive Insurance Broker. New York, NY, USA.      April 2015 – November 2015 • Managed all aspects of business development from initial strategic and fiscal planning to final testing and delivery • Established strategic business partnerships with over 40 global program senior officials at universities in NYC • Obtained NY Life & Health and Property & Casualty insurance producer licenses INFLOT WORLDWIDE, Supervising Port Agent.  St. Petersburg, Russia.      May 2009 – July 2009 • Coordinated over 100 clearance procedures for international passenger cruise ships calling to the port of SPb • Liaised with port authorities, procured supplies, and arranged customs, immigration and quarantine clearance procedures • Organized documentation filing including submission of crew lists, cargo manifest and trading certificates • Arranged vessel mooring and handling, as well as husbandry services for various types of vessels E",
+          social: {
+            facebook: "",
+            linkedin: ""
+          },
+          terms: "1,5% of AUM, monthly paid",
+          investors: 404,
+
           rating: 9,
-          img: "1.jpg",
-          company: "bitconnect"
+          aum: 13,
+          assets: 2,
+          profit: 2,
+          initial: 2,
+          output: 2,
+          annual: 2,
+          clients: 4,
         },
         {
-          id: 2,
-          name: "Bender",
-          surname: "Rodríguez",
-          rating: 7,
-          img: "2.jpg",
-          company: "Planet Express"
+          type: "manager",
+          id: 6,
+          name: "Andrei",
+          surname: "Huseu",
+          age: 28,
+          img: "6.jpg",
+          company: 6,
+          money: 97000,
+          methodology: "random",
+          biography: "--",
+          social: {
+            facebook: "",
+            linkedin: ""
+          },
+          terms: "1,5% of AUM, monthly paid",
+          investors: 404,
+
+          rating: 9,
+          aum: 13,
+          assets: 2,
+          profit: 2,
+          initial: 2,
+          output: 2,
+          annual: 2,
+          clients: 4,
         },
         {
-          id: 3,
-          name: "Sergey",
-          surname: "Mavrodi",
-          rating: 6,
-          img: "3.jpg",
-          company: "MMM"
+          type: "manager",
+          id: 7,
+          name: "Olga",
+          surname: "Pershina",
+          age: 28,
+          img: "7.jpg",
+          company: 7,
+          money: 97000,
+          methodology: "random",
+          biography: "--",
+          social: {
+            facebook: "",
+            linkedin: ""
+          },
+          terms: "1,5% of AUM, monthly paid",
+          investors: 404,
+
+          rating: 9,
+          aum: 13,
+          assets: 2,
+          profit: 2,
+          initial: 2,
+          output: 2,
+          annual: 2,
+          clients: 4,
+        },
+      ],
+
+      companies: [
+        {
+          id: 5,
+          name: "Moroz&Co",
+          img: "ponzi.jpg",
+          site: "https://en.wikipedia.org/wiki/Ponzi_scheme"
         },
         {
-          id: 4,
-          name: "Charles",
-          surname: "Ponzi",
-          rating: 10,
-          img: "4.jpg",
-          company: "Banco Zarossi"
+          id: 6,
+          name: "Moroz&Co",
+          img: "ponzi.jpg",
+          site: "https://en.wikipedia.org/wiki/Ponzi_scheme"
+        },
+        {
+          id: 7,
+          name: "Mera Kapital",
+          img: "mera.png",
+          site: "http://www.mera-capital.com/"
         },
       ],
 
       algorythms: [
-        {
-          id: 0,
-          creator: 0,
-          name: "choose one chair",
-          rating: 8,
-          currency: "BTC"
-        },
-        {
-          id: 1,
-          creator: 3,
-          name: "NNN",
-          rating: 9,
-          currency: "DOGE"
-        },
-        {
-          id: 2,
-          creator: 2,
-          name: "blackjack",
-          rating: 10,
-          currency: "BTC"
-        },
-        {
-          id: 3,
-          creator: 4,
-          name: "not_a_ponzi_scheme",
-          rating: 6,
-          currency: "BTC"
-        },
-        {
-          id: 4,
-          creator: 4,
-          name: "not_a_pyramid",
-          rating: 5,
-          currency: "BTC"
-        },
-        {
-          id: 5,
-          creator: 2,
-          name: "moon",
-          rating: 7,
-          currency: "ETH"
-        },
-        {
-          id: 6,
-          creator: 0,
-          name: "podpolniy millionare",
-          rating: 9,
-          currency: "ETH"
-        },
-        {
-          id: 7,
-          creator: 0,
-          name: "son of Captian Shmidt",
-          rating: 6,
-          currency: "ETH"
-        },
-        {
-          id: 8,
-          creator: 2,
-          name: "planet express",
-          rating: 5,
-          currency: "ETH"
-        },
-        {
-          id: 9,
-          creator: 1,
-          name: "bitconnnneeeeeeeeeeeeect",
-          rating: 4,
-          currency: "ETH"
-        },
       ],
 
       staticQuestions: [
         {
-          question: "What is your monthly income?",
-          answers: ["$1-10", "$10-100", "$100-1000", "$1000-10000"]
+          type: "",
+          question: "What is your primary reason for investing?",
+          answers: ["General Savings", "Retirement", "Colledge savings", "Other"]
         },
         {
-          question: "What is your favourite color?",
-          answers: ["red", "green", "blue"]
+          question: "What is your current age?",
+          answers: ["18-24", "25-32", "33-46", "47-54", "55 or older"]
+        },
+        {
+          question: "What is your pre-tax income?",
+          answers: ["100-500$", "500-1000$", "1000-5000$", "5000-10000$", "10000-100000$", "100000$ or more"]
+        },
+        {
+          question: "What of the following best describes your household?",
+          answers: ["Single income, no dependents", "Single income, at least one dependent", "Dual income, no dependents", "Dual income, at least one dependent", "Retired or financially independent"]
+        },
+        {
+          question: "What is the total value of your cash in liquid investments?",
+          answers: ["100-500$", "500-1000$", "1000-5000$", "5000-10000$", "10000-100000$", "100000$ or more"]
+        },
+        {
+          question: "When deciding how to invest your money, wich do you care about more?",
+          answers: ["Maximizing gains", "Minimizing looses", "Both equally"]
+        },
+        {
+          question: "The global stock market is often volatile. If your entire investement portfolio lost 10% of its value in a month during a market decline, what would you do?",
+          answers: ["Sell all of your investments", "Sell some", "Keep all", "Buy more"]
+        },
+        {
+          question: "What is the total value of your cash in liquid investments?",
+          answers: ["100-500$", "500-1000$", "1000-5000$", "5000-10000$", "10000-100000$", "100000$ or more"]
         },
       ],
       dynamicQuestions: [
@@ -174,6 +241,100 @@ class App extends Component {
           answers: ["yes", "definitely", "absolutely!!"]
         },
       ],
+      account: {
+        personalInfo: {
+          firstName: "",
+          lastName: "",
+          day: 0,
+          month: 0,
+          year: 0,
+          nationality: "",
+        }
+      },
+      portfolios: [
+        {
+          type: "portfolio",
+          id: 0,
+          investor: 0,
+          manager: 0,
+          date: "15:16 01-02-2013",
+          value: 1,
+          currency: "ETH",
+          alg: 0,
+          profit: 12,
+          cost: 0.2,
+          status: "recalculating"
+        },
+        {
+          type: "portfolio",
+          id: 1,
+          investor: 2,
+          manager: 4,
+          date: "15:16 01-02-2013",
+          value: 7,
+          currency: "ETH",
+          alg: 1,
+          profit: -247,
+          cost: 0.4,
+          status: "recalculated"
+        },
+        {
+          type: "portfolio",
+          id: 2,
+          investor: 1,
+          manager: 3,
+          date: "15:16 01-02-2013",
+          value: 6,
+          currency: "ETH",
+          alg: 2,
+          profit: 164,
+          cost: 0.67,
+          status: "recalculated"
+        },
+      ],
+      requests: [
+        {
+          type: "request",
+          id: 0,
+          investor: 0,
+          manager: 0,
+          date: "15:16 12-11-2017",
+          value: 1,
+          currency: "ETH",
+          status: "revision",
+        },
+        {
+          type: "request",
+          id: 1,
+          investor: 2,
+          manager: 0,
+          date: "15:16 10-04-2018",
+          value: 10,
+          currency: "BTC",
+          status: "pending",
+        },
+        {
+          type: "request",
+          id: 2,
+          investor: 0,
+          manager: 2,
+          date: "11:16 11-04-2018",
+          value: 3,
+          currency: "ETH",
+          status: "declined",
+        },
+        {
+          type: "request",
+          id: 3,
+          investor: 1,
+          manager: 3,
+          date: "19:40 01-02-2016",
+          value: 4,
+          currency: "ETH",
+          status: "pending",
+        },
+      ],
+      agreement: "Wealthfront Inc. is an SEC registered investment advisor.\nBy using this website, you accept our Terms of Use and Privacy Policy. Past performance is no guarantee of future results. Any historical returns, expected returns, or probability projections may not reflect actual future performance. All securities involve risk and may result in loss. Our financial planning services were designed to aid our clients in preparing for their financial futures and allow them to personalize their assumptions for their portfolios. We do not intend to represent that our financial planning guidance is based on or meant to replace a comprehensive evaluation of a client's entire personal portfolio. While the data Wealthfront uses from third parties is believed to be reliable, Wealthfront cannot ensure the accuracy or completeness of data provided by clients or third parties. Wealthfront does not provide tax advice and does not represent in any manner that the outcomes described herein will result in any particular tax consequence. Prospective investors should confer with their personal tax advisors regarding the tax consequences based on their particular circumstances. Wealthfront assumes no responsibility for the tax consequences for any investor of any transaction. Full Disclosure\nThe Wealthfront Risk Parity Fund is managed by WFAS LLC, an SEC registered investment adviser and a wholly owned subsidiary of Wealthfront Inc. WFAS LLC receives an annual management fee equal to 0.50% of the Fund's average daily net assets. Northern Lights Distributors, LLC, a member of FINRA / SIPC, serves as the principal distributor for the Fund.\nBefore investing in the Wealthfront Risk Parity Fund, you should carefully consider the Fund's investment objectives, risks, fees and expenses. This and other information can be found in the Fund's prospectus. Please read the fund prospectus or summary prospectus carefully before investing. In order to add the Wealthfront Risk Parity Fund, we must rebalance your portfolio. As part of this process, if we sell positions at a gain, and you do not have sufficient harvested losses to offset those gains, you'll pay taxes on the net gain.\nAll investing is subject to risk, including the possible loss of the money you invest. In addition, an investment in the Wealthfront Risk Parity Fund (the \"Fund\") would also subject you to the following principal risks, among others: The Fund's principal investment strategy requires the use of derivative instruments, such as investments in total return swaps, forward and futures contracts. In general, a derivative instrument typically involves leverage, providing exposure to potential gain or loss from a change in market price of the underlying security or commodity in a notional amount that exceeds the amount of cash or assets required to establish or maintain the derivative instrument. Adverse changes in the value of the underlying asset or index, can result in a loss to the Fund substantially greater than the amount invested in the derivative itself. These derivative instruments provide the economic effect of financial leverage by creating additional investment exposure to the underlying instrument. Financial leverage will magnify, sometimes significantly, the Fund's exposure to any increase or decrease in prices associated with a particular reference asset resulting in increased volatility in the value of the Fund's portfolio. While such financial leverage has the potential to produce greater gains, it also may result in greater losses, which in some cases may cause the Fund to liquidate other portfolio investments at a loss to comply with limits on leverage and asset segregation requirements imposed by the 1940 Act or to meet redemption requests. If the Fund uses leverage through the purchase of derivative instruments, the Fund has the risk that losses may exceed the net assets of the Fund. The net asset value of the Fund while employing leverage will be more volatile and sensitive to market movements. Investments in total return swap agreements also involves the risk that the party with whom the Fund has entered into the total return swap agreements will default on its obligation to pay the Fund. The Fund's use of derivatives may cause the Fund to realize higher amounts of short-term capital gains than if the Fund had not used such instruments. The Fund may also be subject to overall equity market risk, including volatility, which may affect the value of individual instruments in which the Fund invests. Factors such as domestic and foreign economic growth and market conditions, interest rate levels, and political events affect the securities markets. Markets also tend to move in cycles, with periods of rising and falling prices. If there is a general decline in the securities and other markets, your investment in the Fund may lose value, regardless of the individual results of the securities and other instruments in which the Fund invests. When the value of the Fund's investments goes down, your investment in the Fund decreases in value and you could lose money. As a new fund, there can be no assurance that the Fund will grow to or maintain an economically viable size, in which case it could ultimately liquidate. The Fund is non-diversified under the 1940 Act and may be more susceptible than a diversified fund to being adversely affected by any single corporate, economic, political or regulatory occurrence. For more information regarding the risks of investing in the Fund, please see Principal Investment Risks section of the Fund's prospectus. Past performance is no guarantee of future results.",
     };
   }
 
@@ -477,6 +638,10 @@ class App extends Component {
         </div>
       </div>
     );
+  }
+
+  renderManagerAccountPage() {
+    this.setPage("account");
   }
 
   renderAboutUsPage() {
@@ -991,8 +1156,45 @@ class App extends Component {
   }
 }
 
+class LoginForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      login: "",
+      password: "",
+    }
+  }
+
+  render() {
+    return (
+      <div className="login-box">
+        <h3>{this.props.title}</h3>
+        <b>Email</b>
+        <input type="text" value={this.state.login} onChange={(event) => this.setState({ login: event.target.value })} placeholder="me@example.com" />
+        <b>Password</b>
+        <input type="password" value={this.state.password} onChange={(event) => this.setState({ password: event.target.value })} placeholder="password" />
+        <button className="login" onClick={() => this.props.tryLogin(this.state.login, this.state.password)}>Log in</button>
+      </div>
+    );
+  }
+}
+
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function newLines(string) {
+  var paragraphs = [];
+  var prevI = 0;
+
+  for (var i = 0; i < string.length; i++)
+    if (string[i] === '\n') {
+      paragraphs.push(string.slice(prevI, i));
+      prevI = i;
+    }
+  paragraphs.push(string.slice(prevI));
+
+  return <div>{paragraphs.map(paragraph => <p>{paragraph}</p>)}</div>;
 }
 
 export default App;
