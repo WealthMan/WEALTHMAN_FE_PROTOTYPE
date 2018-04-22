@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
+import myDate from './myDate.js';
+
 import logoWhite from './logo.svg';
 import logoBlue from './logo_blue.svg';
 import './css/main.css';
@@ -335,7 +337,113 @@ class App extends Component {
         },
       ],
       agreement: "Wealthfront Inc. is an SEC registered investment advisor.\nBy using this website, you accept our Terms of Use and Privacy Policy. Past performance is no guarantee of future results. Any historical returns, expected returns, or probability projections may not reflect actual future performance. All securities involve risk and may result in loss. Our financial planning services were designed to aid our clients in preparing for their financial futures and allow them to personalize their assumptions for their portfolios. We do not intend to represent that our financial planning guidance is based on or meant to replace a comprehensive evaluation of a client's entire personal portfolio. While the data Wealthfront uses from third parties is believed to be reliable, Wealthfront cannot ensure the accuracy or completeness of data provided by clients or third parties. Wealthfront does not provide tax advice and does not represent in any manner that the outcomes described herein will result in any particular tax consequence. Prospective investors should confer with their personal tax advisors regarding the tax consequences based on their particular circumstances. Wealthfront assumes no responsibility for the tax consequences for any investor of any transaction. Full Disclosure\nThe Wealthfront Risk Parity Fund is managed by WFAS LLC, an SEC registered investment adviser and a wholly owned subsidiary of Wealthfront Inc. WFAS LLC receives an annual management fee equal to 0.50% of the Fund's average daily net assets. Northern Lights Distributors, LLC, a member of FINRA / SIPC, serves as the principal distributor for the Fund.\nBefore investing in the Wealthfront Risk Parity Fund, you should carefully consider the Fund's investment objectives, risks, fees and expenses. This and other information can be found in the Fund's prospectus. Please read the fund prospectus or summary prospectus carefully before investing. In order to add the Wealthfront Risk Parity Fund, we must rebalance your portfolio. As part of this process, if we sell positions at a gain, and you do not have sufficient harvested losses to offset those gains, you'll pay taxes on the net gain.\nAll investing is subject to risk, including the possible loss of the money you invest. In addition, an investment in the Wealthfront Risk Parity Fund (the \"Fund\") would also subject you to the following principal risks, among others: The Fund's principal investment strategy requires the use of derivative instruments, such as investments in total return swaps, forward and futures contracts. In general, a derivative instrument typically involves leverage, providing exposure to potential gain or loss from a change in market price of the underlying security or commodity in a notional amount that exceeds the amount of cash or assets required to establish or maintain the derivative instrument. Adverse changes in the value of the underlying asset or index, can result in a loss to the Fund substantially greater than the amount invested in the derivative itself. These derivative instruments provide the economic effect of financial leverage by creating additional investment exposure to the underlying instrument. Financial leverage will magnify, sometimes significantly, the Fund's exposure to any increase or decrease in prices associated with a particular reference asset resulting in increased volatility in the value of the Fund's portfolio. While such financial leverage has the potential to produce greater gains, it also may result in greater losses, which in some cases may cause the Fund to liquidate other portfolio investments at a loss to comply with limits on leverage and asset segregation requirements imposed by the 1940 Act or to meet redemption requests. If the Fund uses leverage through the purchase of derivative instruments, the Fund has the risk that losses may exceed the net assets of the Fund. The net asset value of the Fund while employing leverage will be more volatile and sensitive to market movements. Investments in total return swap agreements also involves the risk that the party with whom the Fund has entered into the total return swap agreements will default on its obligation to pay the Fund. The Fund's use of derivatives may cause the Fund to realize higher amounts of short-term capital gains than if the Fund had not used such instruments. The Fund may also be subject to overall equity market risk, including volatility, which may affect the value of individual instruments in which the Fund invests. Factors such as domestic and foreign economic growth and market conditions, interest rate levels, and political events affect the securities markets. Markets also tend to move in cycles, with periods of rising and falling prices. If there is a general decline in the securities and other markets, your investment in the Fund may lose value, regardless of the individual results of the securities and other instruments in which the Fund invests. When the value of the Fund's investments goes down, your investment in the Fund decreases in value and you could lose money. As a new fund, there can be no assurance that the Fund will grow to or maintain an economically viable size, in which case it could ultimately liquidate. The Fund is non-diversified under the 1940 Act and may be more susceptible than a diversified fund to being adversely affected by any single corporate, economic, political or regulatory occurrence. For more information regarding the risks of investing in the Fund, please see Principal Investment Risks section of the Fund's prospectus. Past performance is no guarantee of future results.",
+
+      tokens: [
+        {
+          "name": "Bitcoin",
+          "symbol": "BTC",
+          "price_usd": "8799.69",
+          "price_btc": "1.0",
+          "market_cap_usd": "149518718278",
+        },
+        {
+          "name": "Ethereum",
+          "symbol": "ETH",
+          "price_usd": "605.189",
+          "price_btc": "0.0688367",
+          "market_cap_usd": "59892115473.0",
+        },
+        {
+          "name": "Ripple",
+          "symbol": "XRP",
+          "price_usd": "0.858897",
+          "price_btc": "0.00009769",
+          "market_cap_usd": "33602451230.0",
+        },
+        {
+          "name": "Bitcoin Cash",
+          "symbol": "BCH",
+          "price_usd": "1135.44",
+          "price_btc": "0.129149",
+          "market_cap_usd": "19400652981.0",
+        },
+        {
+          "name": "EOS",
+          "symbol": "EOS",
+          "price_usd": "10.8138",
+          "price_btc": "0.00123001",
+          "market_cap_usd": "8741671551.0",
+        },
+        {
+          "name": "Litecoin",
+          "symbol": "LTC",
+          "price_usd": "147.318",
+          "price_btc": "0.0167565",
+          "market_cap_usd": "8277586684.0",
+        },
+        {
+          "name": "Cardano",
+          "symbol": "ADA",
+          "price_usd": "0.28347",
+          "price_btc": "0.00003224",
+          "market_cap_usd": "7349546685.0",
+        },
+        {
+          "name": "Stellar",
+          "symbol": "XLM",
+          "price_usd": "0.367553",
+          "price_btc": "0.00004181",
+          "market_cap_usd": "6825325914.0",
+        },
+        {
+          "name": "IOTA",
+          "symbol": "MIOTA",
+          "price_usd": "1.89329",
+          "price_btc": "0.00021535",
+          "market_cap_usd": "5262456890.0",
+        },
+        {
+          "name": "NEO",
+          "symbol": "NEO",
+          "price_usd": "74.1089",
+          "price_btc": "0.00842946",
+          "market_cap_usd": "4817078500.0",
+        }
+      ],
     };
+  }
+
+  priceUSD(currency) {
+    var fullName;
+    switch(currency) {
+      case "BTC":
+        fullName = "bitcoin";
+        break;
+      case "ETH":
+        fullName = "ethereum";
+        break;
+      case "XRP":
+        fullName = "ripple";
+        break;
+      case "BCH":
+        fullName = "bitcoin-cash";
+        break;
+      case "LTC":
+        fullName = "litecoin";
+        break;
+    }
+    const myFirstPromise = new Promise((resolve, reject) => {
+      fetch("https://api.coinmarketcap.com/v1/ticker/" + fullName)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            resolve(parseFloat(result.price_usd));
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+    });
   }
 
   tryLogin() {
@@ -362,7 +470,6 @@ class App extends Component {
   setPage(page, id) {
     var prevousPages = this.state.prevousPages.slice();
     prevousPages.push(this.state.currentPage);
-
     if (typeof id !== "undefined")
       switch (page) {
         case "manager":
@@ -371,11 +478,19 @@ class App extends Component {
         case "algorythm":
           this.setState({currentAlgorythm: id})
           break;
+        case "portfolio":
+          this.setState({currentPortfolio: id})
+          break;
+        case "request":
+          this.setState({currentRequest: id})
+          break;
       }
 
     this.setState({
       currentPage: page,
-      prevousPages: prevousPages
+      prevousPages: prevousPages,
+      currentAccountPage: "personal",
+      currentPortfoliosPage: "active",
     });
   }
   prevousPage() {
@@ -478,12 +593,48 @@ class App extends Component {
 
   renderLoginPage() {
     return (
+      <div>
+        <LoginForm title="" tryLogin={(login, password) => this.tryLogin(login, password)} />
+        {/* <LoginForm title="Log in as Manager" tryLogin={(login, password) => this.tryLogin(login, password)} />
+        <LoginForm title="Log in as Data Supplier" tryLogin={(login, password) => this.tryLogin(login, password)} /> */}
+      </div>
+    );
+    return (
       <div className="login-box">
         <h3>Welcome back</h3>
         <b>Email</b>
         <input type="text" value={this.state.login} onChange={(event) => this.setState({ login: event.target.value })} placeholder="me@example.com" />
         <b>Password</b>
         <input type="password" value={this.state.password} onChange={(event) => this.setState({ password: event.target.value })} placeholder="password" />
+        {/* <h3>Choose your role</h3>
+        <select>
+          <option onClick={() => this.setState({ login: "investor", password: "123" })}>investor</option>
+          <option onClick={() => this.setState({ login: "manager", password: "123" })}>manager</option>
+        </select> */}
+        <button className="login" onClick={() => this.tryLogin()}>Log in</button>
+      </div>
+    );
+  }
+  renderLogin2Page() {
+    return (
+      <div>
+        <LoginForm title="Login for Experts" tryLogin={(login, password) => this.tryLogin(login, password)} />
+        {/* <LoginForm title="Log in as Manager" tryLogin={(login, password) => this.tryLogin(login, password)} />
+        <LoginForm title="Log in as Data Supplier" tryLogin={(login, password) => this.tryLogin(login, password)} /> */}
+      </div>
+    );
+    return (
+      <div className="login-box">
+        <h3>Welcome back</h3>
+        <b>Email</b>
+        <input type="text" value={this.state.login} onChange={(event) => this.setState({ login: event.target.value })} placeholder="me@example.com" />
+        <b>Password</b>
+        <input type="password" value={this.state.password} onChange={(event) => this.setState({ password: event.target.value })} placeholder="password" />
+        {/* <h3>Choose your role</h3>
+        <select>
+          <option onClick={() => this.setState({ login: "investor", password: "123" })}>investor</option>
+          <option onClick={() => this.setState({ login: "manager", password: "123" })}>manager</option>
+        </select> */}
         <button className="login" onClick={() => this.tryLogin()}>Log in</button>
       </div>
     );
@@ -754,39 +905,127 @@ class App extends Component {
     );
   }
 
-  renderManagerPage() {
-    var manager = this.state.managers[this.state.currentManager];
+  renderManagerPage(match) {
+    var manager = this.state.managers.find(manager => manager.id == match.params.id);
+    var company = this.state.companies.find(company => company.id == manager.company);
+    var companies;
     var algs = this.state.algorythms.filter(alg => {
       return alg.creator == manager.id;
-    }).map(alg =>
-      <div className="manager" onClick={() => this.setPage("algorythm", alg.id)}>
-        <h4>{alg.name}</h4>
-        <p className="grey">rating {alg.rating}/10</p>
-      </div>
-    );
+    });
+    // }).map(alg =>
+    //   <div className="manager-listing" onClick={() => this.setPage("algorythm", alg.id)}>
+    //     <h4>{alg.name}</h4>
+    //     <p className="grey">rating {alg.rating}/10</p>
+    //   </div>
+    // );
 
     return (
       <div>
-        {this.renderBackButton()}
+        {/* {this.renderBackButton()} */}
         <div className="container">
-          <div className="box">
-            <div className="circle left">
-              <img src={"managers/" + manager.img} className="avatar" />
+          <div className="first-tab">
+            <div className="manager-box">
+              <div className="cover"></div>
+              <div className="info">
+                <div className="circle">
+                  <img src={manager.img} className="avatar" />
+                </div>
+                <h2 className="text-center">{manager.name} {manager.surname}</h2>
+                <h4 className="text-center">Age {manager.age}</h4>
+                <div className="row-padding">
+                  <div className="column center">
+                    {/* {this.state.user !== -1 ? (<button className="back">Contact</button>) : ""} */}
+                    {/* <Link to={"/contact"}> */}
+                      <button className="back">Contact</button>
+                    {/* </Link> */}
+                    {/* <Link to="/register"> */}
+                      <button className="continue">Invest</button>
+                    {/* </Link> */}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="half">
-              <h3>{manager.name} {manager.surname}</h3>
-              <p>rating {manager.rating}/10</p>
-              <p>company "{manager.company}"</p>
+
+            <div className="row-padding">
+              <div className="box">
+                <h4>Fees</h4>
+                {/* <p>Manager will ask you to agree with</p>
+                <ul>
+                  <li>Condition 1</li>
+                  <li>Condition 2</li>
+                  <li>Condition 3</li>
+                  <li>Condition 4</li>
+                </ul>
+                <p>and also</p>
+                <ul>
+                  <li>Condition 1</li>
+                  <li>Condition 2</li>
+                  <li>Condition 3</li>
+                  <li>Condition 4</li>
+                </ul> */}
+                {manager.terms}
+              </div>
             </div>
-            <div className="row">
-              <h4>Manager Algorythms</h4>
-              {algs}
+
+            <div className="row-padding">
+              <div className="box margin-right row">
+                <div className="third">
+                  <p className="blue">Social networks:</p>
+                  <button className="facebook"></button>
+                  <button className="twitter"></button>
+                  <button className="linkedin"></button>
+                </div>
+                <div className="two-third">
+                  <p className="blue">Biography:</p><p> {manager.biography}</p>
+                </div>
+              </div>
+              {/* <div className="half-box">
+                <div className="circle left">
+                  <img src={"companies/" + company.img} className="avatar" />
+                </div>
+                <div className="half">
+                  <p className="blue">Company</p>
+                  <h3>{company.name}</h3>
+                  <a>{company.site}</a>
+                </div>
+                <div className="row">
+                  <p className="blue">Social networks:</p>
+                  <button className="facebook"></button>
+                  <button className="twitter"></button>
+                  <button className="linkedin"></button>
+                </div>
+              </div>            */}
+            </div>
+
+          </div>
+          <div className="second-tab">
+            <div className="box">
+              <div className="circle left">
+                <img src={"companies/" + company.img} className="avatar" />
+              </div>
+              <div className="row">
+                <p className="blue">Company</p>
+                <h3>{company.name}</h3>
+                <div className="row tridot">
+                  <a>{company.site}</a>
+                </div>
+              </div>
+              <div className="row">
+                <p className="blue">Social networks:</p>
+                <button className="facebook"></button>
+                <button className="twitter"></button>
+                <button className="linkedin"></button>
+              </div>
+            </div>
+            <div className="box">
+              <p className="blue">Methodology:</p><p> {manager.methodology}</p>
             </div>
           </div>
         </div>
       </div>
     )
   }
+
   renderAlgorythmPage() {
     var alg = this.state.algorythms[this.state.currentAlgorythm];
     var manager = this.state.managers[alg.creator];
@@ -1195,6 +1434,16 @@ function newLines(string) {
   paragraphs.push(string.slice(prevI));
 
   return <div>{paragraphs.map(paragraph => <p>{paragraph}</p>)}</div>;
+}
+function priceUSD(string) {
+  var start = string.indexOf(".");
+  var counter = 0;
+  for (var i = start; i > 0; i++, counter++)
+    if (counter % 3 == 0 && counter != 0) {
+      string = string.slice(0, i) + " " + string.slice(i);
+      i++;
+    }
+  return string;
 }
 
 export default App;
