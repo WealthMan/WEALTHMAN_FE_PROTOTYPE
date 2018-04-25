@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
+import Sortable from './Sortable.js';
 import myDate from './myDate.js';
 
-import logoWhite from './logo.svg';
-import logoBlue from './logo_blue.svg';
+import logoWhite from './img/logo.svg';
+import logoBlue from './img/logo_blue.svg';
 import './css/main.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: -1,
+      user: 1,
       login: "",
       password: "",
 
@@ -186,6 +187,76 @@ class App extends Component {
       ],
 
       algorythms: [
+        {
+          id: 0,
+          creator: 0,
+          name: "choose one chair",
+          rating: 8,
+          currency: "BTC"
+        },
+        {
+          id: 1,
+          creator: 3,
+          name: "NNN",
+          rating: 9,
+          currency: "DOGE"
+        },
+        {
+          id: 2,
+          creator: 2,
+          name: "blackjack",
+          rating: 10,
+          currency: "BTC"
+        },
+        {
+          id: 3,
+          creator: 4,
+          name: "not_a_ponzi_scheme",
+          rating: 6,
+          currency: "BTC"
+        },
+        {
+          id: 4,
+          creator: 4,
+          name: "not_a_pyramid",
+          rating: 5,
+          currency: "BTC"
+        },
+        {
+          id: 5,
+          creator: 2,
+          name: "moon",
+          rating: 7,
+          currency: "ETH"
+        },
+        {
+          id: 6,
+          creator: 0,
+          name: "podpolniy millionare",
+          rating: 9,
+          currency: "ETH"
+        },
+        {
+          id: 7,
+          creator: 0,
+          name: "son of Captian Shmidt",
+          rating: 6,
+          currency: "ETH"
+        },
+        {
+          id: 8,
+          creator: 2,
+          name: "planet express",
+          rating: 5,
+          currency: "ETH"
+        },
+        {
+          id: 9,
+          creator: 1,
+          name: "bitconnnneeeeeeeeeeeeect",
+          rating: 4,
+          currency: "ETH"
+        },
       ],
 
       staticQuestions: [
@@ -258,7 +329,7 @@ class App extends Component {
           type: "portfolio",
           id: 0,
           investor: 0,
-          manager: 0,
+          manager: 6,
           date: "15:16 01-02-2013",
           value: 1,
           currency: "ETH",
@@ -271,7 +342,7 @@ class App extends Component {
           type: "portfolio",
           id: 1,
           investor: 2,
-          manager: 4,
+          manager: 5,
           date: "15:16 01-02-2013",
           value: 7,
           currency: "ETH",
@@ -284,7 +355,7 @@ class App extends Component {
           type: "portfolio",
           id: 2,
           investor: 1,
-          manager: 3,
+          manager: 7,
           date: "15:16 01-02-2013",
           value: 6,
           currency: "ETH",
@@ -299,7 +370,7 @@ class App extends Component {
           type: "request",
           id: 0,
           investor: 0,
-          manager: 0,
+          manager: 6,
           date: "15:16 12-11-2017",
           value: 1,
           currency: "ETH",
@@ -309,7 +380,7 @@ class App extends Component {
           type: "request",
           id: 1,
           investor: 2,
-          manager: 0,
+          manager: 7,
           date: "15:16 10-04-2018",
           value: 10,
           currency: "BTC",
@@ -319,7 +390,7 @@ class App extends Component {
           type: "request",
           id: 2,
           investor: 0,
-          manager: 2,
+          manager: 6,
           date: "11:16 11-04-2018",
           value: 3,
           currency: "ETH",
@@ -329,7 +400,7 @@ class App extends Component {
           type: "request",
           id: 3,
           investor: 1,
-          manager: 3,
+          manager: 5,
           date: "19:40 01-02-2016",
           value: 4,
           currency: "ETH",
@@ -446,22 +517,32 @@ class App extends Component {
     });
   }
 
-  tryLogin() {
-    if (this.state.password == "123" && this.state.login == "investor")
+  tryLogin(login, password) {
+    if (typeof login === "undefined") {
+      login = this.state.login;
+      password = this.state.password;
+    }
+
+    if (password == "123" && login == "investor")
       this.setState({
         user: 0,
-        currentPage: "contracts"
+        currentPage: "managers"
       });
-      if (this.state.password == "123" && this.state.login == "manager")
-        this.setState({
-          user: 1,
-          currentPage: "contracts"
-        });
+    if (password == "123" && login == "manager")
+      this.setState({
+        user: 1,
+        currentPage: "requests"
+      });
+    if (password == "123" && login == "supplier")
+      this.setState({
+        user: 2,
+        currentPage: "managers"
+      });
   }
   logout() {
     this.setState({
       user: -1,
-      currentPage: "landing",
+      currentPage: "managers",
       login: "",
       password: ""
     });
@@ -520,8 +601,8 @@ class App extends Component {
     );
   }
   renderProgressBar() {
-    var pages = ["register", "agreement", "static form", "dynamic form", "manager form", "KYC", "accept", "money"];
-    var progress = pages.indexOf(this.state.currentPage) + 1;
+    var pages = ["register", "agreement", "static form", "dynamic form", "manager form", "kyc", "thanks2", "accept", "money"];
+    var progress = pages.indexOf(this.state.currentPage.toLowerCase()) + 1;
     var total = pages.length;
 
     return (
@@ -532,63 +613,56 @@ class App extends Component {
   }
 
   renderPage() {
-    switch (this.state.currentPage.toLowerCase()) {
-      case "login":
-        return this.renderLoginPage();
-      case "contracts":
-        return this.renderContractsPage();
-      case "investment":
-        return this.renderInvestmentPage();
-      case "documents":
-        return this.renderDocumentsPage();
-      case "about us":
-        return this.renderAboutUsPage();
-      case "origin":
-        return this.renderOriginPage();
-      case "invest":
-        return this.renderInvestPage();
+    return (
+      <Switch>
+        <Route exact path="/" render={() => (this.state.user == -1 ? this.renderManagersPage() : this.renderPortfoliosPage())}/>
+        <Route path="/login" render={() => this.renderLoginPage()}/>
+        <Route path="/totallydifferentlogin" render={() => this.renderLogin2Page()}/>
+        <Route path="/account" render={() => this.renderAccountPage()}/>
+        <Route path="/about us" render={() => this.renderAboutUsPage()}/>
+        <Route path="/origin" render={() => this.renderOriginPage()}/>
+        <Route path="/invest" render={() => this.renderInvestPage()}/>
 
-      case "legal":
-        return this.renderLegalPage();
-      case "contacts":
-        return this.renderContactsPage();
-      case "methodology":
-        return this.renderMethodologyPage();
-      case "press":
-        return this.renderPressPage();
-      case "help center":
-        return this.renderHelpCenterPage();
-      case "blog":
-        return this.renderBlogPage();
+        <Route path="/legal" render={() => this.renderLegalPage()}/>
+        <Route path="/contacts" render={() => this.renderContactsPage()}/>
+        <Route path="/methodology" render={() => this.renderMethodologyPage()}/>
+        <Route path="/press" render={() => this.renderPressPage()}/>
+        <Route path="/help center" render={() => this.renderHelpCenterPage()}/>
+        <Route path="/blog" render={() => this.renderBlogPage()}/>
 
-      case "manager":
-        return this.renderManagerPage();
-      case "algorythm":
-        return this.renderAlgorythmPage();
+        <Route path="/manager/:id" render={({match}) => this.renderManagerPage(match)}/>
+        <Route path="/algorythm/:id" render={({match}) => this.renderAlgorythmPage(match)}/>
+        <Route path="/portfolio/:id" render={({match}) => this.renderPortfolioPage(match)}/>
+        <Route path="/request/:id" render={({match}) => this.renderRequestPage(match)}/>
 
-      /* FORMS */
-      case "static form":
-        return this.renderStaticForm();
-      case "dynamic form":
-        return this.renderDynamicForm();
-      case "agreement":
-        return this.renderAgreementPage();
-      case "manager form":
-        return this.renderManagerForm();
-      case "thanks":
-        return this.renderThanksPage();
-      case "register":
-        return this.renderRegisterPage();
-      case "money":
-        return this.renderMoneyPage();
-      case "kyc":
-        return this.renderKYCPage();
-      case "accept":
-        return this.renderAcceptPage();
+        <Route path="/portfolios" render={() => this.renderPortfoliosPage()}/>
+        <Route path="/managers" render={() => this.renderManagersPage()}/>
+        <Route path="/algorythms" render={() => this.renderAlgorythmsPage()}/>
+        <Route path="/requests" render={() => this.renderRequestsPage()}/>
 
-      default:
-        return this.renderLandingPage();
-    }
+        <Route path="/static form" render={() => this.renderStaticFormPage()}/>
+        <Route path="/dynamic form" render={() => this.renderDynamicFormPage()}/>
+        <Route path="/agreement" render={() => this.renderAgreementPage()}/>
+        <Route path="/manager form" render={() => this.renderManagerFormPage()}/>
+        <Route path="/thanks" render={() => this.renderThanksPage()}/>
+        <Route path="/thanks2" render={() => this.renderThanks2Page()}/>
+        <Route path="/register" render={() => this.renderRegisterPage()}/>
+        <Route path="/money" render={() => this.renderMoneyPage()}/>
+        <Route path="/kyc" render={() => this.renderKYCPage()}/>
+        <Route path="/accept" render={() => this.renderAcceptPage()}/>
+
+        <Route path="/chat" render={() => this.renderChatPage()}/>
+        <Route path="/decline" render={() => this.renderDeclinePage()}/>
+        <Route path="/faq" render={() => this.renderFAQPage()}/>
+        <Route path="/contacts" render={() => this.renderContactsPage()}/>
+        <Route path="/user agreement" render={() => this.renderUserAgreementPage()}/>
+
+        <Route path="/email" render={() => this.renderEmailPage()}/>
+        <Route path="/logout" render={() => this.renderManagersPage()}/>
+
+        <Route path="/portfoliocreation" render={() => this.renderPortfolioCreationPage()}/>
+      </Switch>
+    );
   }
 
   renderLoginPage() {
@@ -640,49 +714,88 @@ class App extends Component {
     );
   }
 
-  renderContractsPage() {
+  renderPortfoliosPage() {
+    var currentPage;
+    var portfolios = this.state.portfolios.map(portfolio => {
+      var investor = this.state.investors.find(inv => inv.id == portfolio.investor);
+      var manager = this.state.managers.find(m => m.id == portfolio.manager);
+      var alg = this.state.algorythms.find(alg => alg.id == portfolio.alg);
+
+      return {
+        type: "portfolio",
+        id: portfolio.id,
+        number: "",
+        instrument: alg.name,
+        profit: portfolio.profit,
+        value: (portfolio.value * this.state.currentCurrencyPrices[portfolio.currency]).toFixed(1) + " " + this.state.currentCurrency,
+        status: portfolio.status,
+        cost: portfolio.cost,
+      };
+    });
+    var statistics;
+
+    switch (this.state.currentPortfoliosPage) {
+      case "active":
+        currentPage = (
+          <div className="box">
+            <h4>Active Portfolios</h4>
+            <Sortable
+              listings={portfolios}
+              setPage={this.setPage.bind(this)}
+            />
+          </div>
+        );
+        break;
+      case "archive":
+        currentPage = (
+          <div className="box">
+            <h4>Archived Portfolios</h4>
+            <Sortable
+              listings={portfolios}
+              setPage={this.setPage.bind(this)}
+            />
+          </div>
+        );
+        break;
+      case "statistics":
+        currentPage = (
+          <div className="box">
+            <h4>Statistics</h4>
+            {statistics}
+          </div>
+        );
+        break;
+    }
+
     return (
       <div>
         <div className="second-header">
           <div className="container">
             <div className="title">
-              <h2>My Contracts</h2>
-              <p className="grey">Personal account</p>
+              <h2>My Portfolios</h2>
+              <p className="grey">Total value</p>
             </div>
             <div className="description">
               <h2>$200.00</h2>
-              <p className="grey">Total value</p>
+              <select>
+                <option>USD</option>
+                <option>EUR</option>
+                <option>CNY</option>
+                <option>BTC</option>
+                <option>ETH</option>
+              </select>
             </div>
           </div>
         </div>
         <div className="container">
           <div className="first-tab">
-            <div className="box">
-              <div className="row">
-                contract 1
-              </div>
-              <div className="row">
-                contract 2
-              </div>
-              <div className="row">
-                contract 3
-              </div>
-            </div>
+            {currentPage}
           </div>
           <div className="second-tab">
             <div className="box">
-              <button className="transactions-link">See transactions history</button>
-            </div>
-            <div className="box">
-              <h4>Have a question?</h4>
-              <div className="question">What is WealthMan investment strategy?</div>
-              <div className="question">What defines long-term investing?</div>
-              <div className="question">Can WealthMan help me plan for retirement?</div>
-              <div className="question">What fees will I pay?</div>
-              <div className="question">What is tax-loss harvesting?</div>
-              <div className="question">When will my money be invested?</div>
-              <div className="question">How does client support work?</div>
-              <div className="question">I have a different question</div>
+              <button className="transactions-link" onClick={() => this.setState({ currentPortfoliosPage: "active" })}>Active Portfolios</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentPortfoliosPage: "archive" })}>Archived Portfolios</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentPortfoliosPage: "statistics" })}>Portfolios Statistics</button>
             </div>
           </div>
         </div>
@@ -690,100 +803,234 @@ class App extends Component {
     );
   }
 
-  renderInvestmentPage() {
-    var newAlg = this.state.algorythms.slice(0, 5).map((alg, index) => {
-        var creator = this.state.managers[alg.creator];
-        return (
-          <div className="question">
-            <p>{index + 1}.</p>
-            <button className="transactions-link left" onClick={() => this.setPage("algorythm", alg.id)}>{alg.name}</button>
-            <p>by</p>
-            <button className="transactions-link left" onClick={() => this.setPage("manager", creator.id)}>{creator.name} {creator.surname}</button>
-          </div>
-        );
-      }
-    );
+  renderManagersPage() {
+    var managers = this.state.managers.map(manager => {
+      return {
+        type: "manager",
+        id: manager.id,
+        number: "",
+        img: "manager/" + manager.img,
+        name: manager.name + " " + manager.surname,
+        rating: manager.rating,
+        clients: manager.clients,
 
-    var managers = this.state.managers.slice().sort((a, b) => {
-      return b.rating - a.rating;
-    }).map((manager, index) =>
-      <div className="manager" onClick={() => this.setPage("manager", manager.id)}>
-        <div className="circle left">
-          <img src={"managers/" + manager.img} className="avatar" />
-        </div>
-        <h4>{manager.name} {manager.surname}</h4>
-        <p className="grey">rating {manager.rating}/10</p>
-      </div>
-    );
-
-    var algorythms = this.state.algorythms.slice().sort((a, b) => {
-      return b.rating - a.rating;
-    }).map((alg, index) =>
-      <div className="manager" onClick={() => this.setPage("algorythm", alg.id)}>
-        <h4>{alg.name}</h4>
-        <p className="grey">rating {alg.rating}/10</p>
-      </div>
-    );
+        aum: 20.1,
+        assets: manager.assets,
+        profit: manager.profit,
+        initial: manager.initial,
+        output: manager.output,
+        annual: manager.annual,
+      };
+    });
 
     return (
       <div>
         <div className="long-header"></div>
         <div className="container">
-          <div className="first-tab">
-            <div className="box">
-              <h3>Top managers</h3>
-              {managers}
-              <div className="row">
-                <button className="transactions-link right">See more...</button>
-              </div>
-            </div>
-            <div className="box">
-              <h3>Top algorythms</h3>
-              {algorythms}
-              <div className="row">
-                <button className="transactions-link right">See more...</button>
-              </div>
-            </div>
-          </div>
-          <div className="second-tab">
-            <div className="box">
-              <h4>New algorythms</h4>
-              {newAlg}
-            </div>
+          <div className="box">
+            <h2 className="text-center">Marketplace</h2>
+            <Sortable
+              listings={managers}
+              setPage={this.setPage.bind(this)}
+            />
           </div>
         </div>
       </div>
     );
   }
 
-  renderDocumentsPage() {
+  renderAccountPage() {
+    var changed = false;
+    var accountPage;
+    switch (this.state.currentAccountPage) {
+      case "personal":
+        accountPage = (
+          <div className="box">
+            {/* <div className="half padding-side">
+              <h3 className="high">Personal Info</h3>
+              <input type="text" placeholder="First Name"/>
+              <input type="text" placeholder="Last Name"/>
+              <input type="text" placeholder="day of birth"/>
+              <input type="text" placeholder="month"/>
+              <input type="text" placeholder="year"/>
+              <input type="text" placeholder="nationality"/>
+            </div> */}
+            <div className="half padding-side">
+              <h3 className="high">Contact information</h3>
+              <input type="text" placeholder="email"/>
+              <input type="text" placeholder="phone number"/>
+              <h3 className="high">Change password</h3>
+              <input type="password" placeholder="old password"/>
+              <input type="password" placeholder="new password"/>
+              <input type="password" placeholder="repeat new password"/>
+            </div>
+            <div className="row-padding">
+              <button className={changed ? "continue" : "continue"}>Save changes</button>
+            </div>
+          </div>
+        );
+        break;
+        case "kyc":
+          accountPage = (
+            <div className="box">
+              <div className="half padding-side">
+                <h3 className="high">Personal Info</h3>
+                <input type="text" placeholder="First Name"/>
+                <input type="text" placeholder="Last Name"/>
+                <input type="text" placeholder="phone number"/>
+                <input type="text" placeholder="day of birth"/>
+                <input type="text" placeholder="month"/>
+                <input type="text" placeholder="year"/>
+                <input type="text" placeholder="nationality"/>
+              </div>
+              <div className="half padding-side">
+                <h3 className="high">Address Information</h3>
+                <input type="text" placeholder="Street Address"/>
+                <input type="text" placeholder="Postal Code"/>
+                <input type="text" placeholder="City"/>
+                <input type="text" placeholder="State"/>
+                <input type="text" placeholder="Country"/>
+              </div>
+              {/* <div className="row-padding">
+                <button className={changed ? "continue" : "continue"}>Save changes</button>
+              </div> */}
+                <div className="row padding-side">
+                  <h3 className="high">ID or Passport</h3>
+                  <p>Please upload a photo or a scan of the following:</p>
+                  <div className="document-box">
+                    <h3 className="text-center">ID or Passport</h3>
+                    <div className="row">
+                      <button className="continue">UPLOAD DOCUMENT</button>
+                    </div>
+                  </div>
+                  <div className="document-box">
+                    <h3 className="text-center">Selfie holding ID or Passport</h3>
+                    <div className="row">
+                      <button className="continue">UPLOAD DOCUMENT</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          );
+          break;
+      // case "ID":
+      //   accountPage = (
+      //     <div className="box">
+      //       <div className="row">
+      //         <h3>ID or Passport</h3>
+      //         <p>Please upload a photo or a scan of the following:</p>
+      //         <div className="document-box">
+      //           <h3 className="text-center">ID or Passport</h3>
+      //           <div className="row">
+      //             <button className="continue">UPLOAD DOCUMENT</button>
+      //           </div>
+      //         </div>
+      //         <div className="document-box">
+      //           <h3 className="text-center">Selfie holding ID or Passport</h3>
+      //           <div className="row">
+      //             <button className="continue">UPLOAD DOCUMENT</button>
+      //           </div>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   );
+      //   break;
+      // case "residency":
+      //   accountPage = (
+      //     <div className="box">
+      //       <h3>Residency</h3>
+      //       <p>Please upload proof of residency: an official document showing your name and current address. Note tha the entire document has to be scanned</p>
+      //       <h4>Accepted Documents</h4>
+      //       <ul>
+      //         <li>Current utility bill (e.g. gas, water, electric cable, Internet and telephone)</li>
+      //         <li>Mortgage statement</li>
+      //         <li>Tax bill</li>
+      //         <li>Driver's license</li>
+      //         <li>House of motor ensurance certificate</li>
+      //         <li>Credit card statement</li>
+      //         <li>Bank statement</li>
+      //       </ul>
+      //       <div className="row">
+      //         <div className="document-box">
+      //           <h3 className="text-center">Choose one of the listed</h3>
+      //           <div className="row">
+      //             <button className="continue">UPLOAD DOCUMENT</button>
+      //           </div>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   );
+      //   break;
+      // case "forms":
+      //   accountPage = (
+      //     <div className="box">
+      //       <h3>Some forms</h3>
+      //     </div>
+      //   );
+      //   break;
+      // case "kyc":
+      //   accountPage = (
+      //     <div className="box">
+      //       <h3>Know Your Criminals</h3>
+      //       <p>Some managers may requre KYC documents. Please upload them here.</p>
+      //       <div className="row">
+      //         <div className="document-box">
+      //           <h3 className="text-center">KYC Documents</h3>
+      //           <div className="row">
+      //             <button className="continue">UPLOAD DOCUMENT</button>
+      //           </div>
+      //         </div>
+      //       </div>
+      //     </div>
+      //   );
+      //   break;
+      case "risk":
+        accountPage = (
+          <div className="box">
+            <h3>Risk Tollerance Profile</h3>
+            Your tisk profile: 25%;
+            <div className="row-padding">
+              <button className="continue">Change results</button>
+            </div>
+          </div>
+        );
+        break;
+      case "inv":
+        accountPage = (
+          <div className="box">
+            <h3>Investment goals and strategy aims</h3>
+            You are investing for:
+            <ul>
+              <li>living</li>
+              <li>journeys</li>
+            </ul>
+            <div className="row-padding">
+              <button className="continue">Change results</button>
+            </div>
+          </div>
+        );
+        break;
+    }
     return (
       <div>
-        {this.renderBackButton()}
+        {/* {this.renderBackButton()} */}
         <div className="container">
-          <h1>Taxes & Documents</h1>
+          <h1>Account</h1>
           <div className="first-tab">
-            <div className="box">
-              <h4>Tax Documents</h4>
-            </div>
-            <div className="box">
-              <h4>Statements and Trade Confirmations</h4>
-            </div>
-            <div className="box">
-              <h4>Your ID's</h4>
-            </div>
+            {accountPage}
           </div>
           <div className="second-tab">
             <div className="box">
-              <h4>Other Links</h4>
-              <button className="transactions-link">Client Agreement for My Personal Account</button>
-              <button className="transactions-link">Portfolio Line of Credit Agreement</button>
-              <button className="transactions-link" onClick={() => this.setPage("help center")}>Help Center Articles</button>
-            </div>
-            <div className="box">
-              <h4>Send us a document</h4>
-              <p className="grey">If we have asked you to send us a document, you can upload them here.</p>
-              <button className="send">Upload a document</button>
+              {/* <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "personal" })}>Personal Info</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "address" })}>Address details</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "ID" })}>ID confirmation</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "residency" })}>Residency</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "forms" })}>Fill forms</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "kyc" })}>Know Your Criminals</button> */}
+              <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "personal" })}>Account Information</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "risk" })}>Risk Tollerance Profile</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "inv" })}>Investment goals and strategy aims</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "kyc" })}>Detailed information (kyc)</button>
             </div>
           </div>
         </div>
@@ -818,7 +1065,7 @@ class App extends Component {
   }
 
   renderInvestPage() {
-    this.setPage("investment");
+    this.setPage("managers");
     return (
       <div>
       </div>
@@ -899,7 +1146,6 @@ class App extends Component {
       <div className="container">
         <div className="box">
           <h1 className="text-center">Landing page</h1>
-          <p>Wealthman is a decentralized platform for development, execution and marketing of wealth management service. The platform is embedded with strong antifraud features allowing autonomous robo-advisors and human-driven digital asset management services are to be secure for investors.</p>
         </div>
       </div>
     );
@@ -935,12 +1181,12 @@ class App extends Component {
                 <div className="row-padding">
                   <div className="column center">
                     {/* {this.state.user !== -1 ? (<button className="back">Contact</button>) : ""} */}
-                    {/* <Link to={"/contact"}> */}
+                    <Link to={"/contact"}>
                       <button className="back">Contact</button>
-                    {/* </Link> */}
-                    {/* <Link to="/register"> */}
+                    </Link>
+                    <Link to="/register">
                       <button className="continue">Invest</button>
-                    {/* </Link> */}
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -1026,18 +1272,18 @@ class App extends Component {
     )
   }
 
-  renderAlgorythmPage() {
-    var alg = this.state.algorythms[this.state.currentAlgorythm];
-    var manager = this.state.managers[alg.creator];
+  renderAlgorythmPage(match) {
+    var alg = this.state.algorythms.find(algorytm => algorytm.id == match.params.id);
+    var manager = this.state.managers.find(manager => manager.id == alg.manager);
     var investButton;
     if (this.state.user == -1)
-      investButton = (<button className="continue" onClick={() => this.setPage("register")}>Invest</button>);
+      investButton = (<Link to={"/register"} className="continue">Invest</Link>);
     else
       investButton = (<button className="continue" onClick={() => this.setPage("manager form")}>Invest</button>);
 
     return (
       <div>
-        {this.renderBackButton()}
+        {/* {this.renderBackButton()} */}
         <div className="container">
           <div className="box">
             <h3>{alg.name}</h3>
@@ -1060,7 +1306,7 @@ class App extends Component {
     )
   }
 
-  renderStaticForm() {
+  renderStaticFormPage() {
     var form = this.state.staticQuestions.map(question =>
       <div className="form-question">
         <h4>{question.question}</h4>
@@ -1077,17 +1323,21 @@ class App extends Component {
 
     return (
       <div>
-        {this.renderBackButton()}
+        {/* {this.renderBackButton()} */}
         {this.renderProgressBar()}
         <div className="container">
           <div className="box">
             <div className="container">
-              <h2>Static Form Questions</h2>
+              <h2>Risk Tolerance Profile Questions</h2>
               <h4 className="grey">Asked once</h4>
               {form}
               <div className="row-padding">
-                <button className="back" onClick={() => this.prevousPage()}>Back</button>
-                <button className="continue" onClick={() => this.setPage("dynamic form")}>Continue</button>
+                <Link to={"/agreement"}>
+                  <button className="back" onClick={() => this.prevousPage()}>Back</button>
+                </Link>
+                <Link to={"/dynamic form"}>
+                  <button className="continue" onClick={() => this.setPage("dynamic form")}>Continue</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -1095,7 +1345,7 @@ class App extends Component {
       </div>
     );
   }
-  renderDynamicForm() {
+  renderDynamicFormPage() {
     var form = this.state.dynamicQuestions.map(question =>
       <div className="form-question">
         <h4>{question.question}</h4>
@@ -1112,17 +1362,21 @@ class App extends Component {
 
     return (
       <div>
-        {this.renderBackButton()}
+        {/* {this.renderBackButton()} */}
         {this.renderProgressBar()}
         <div className="container">
           <div className="box">
             <div className="container">
-              <h2>Dynamic Form Questions</h2>
+              <h2>Investement Goals & Strategy Aims</h2>
               <h4 className="grey">Asked every month (or quarter/year)</h4>
               {form}
               <div className="row-padding">
-                <button className="back" onClick={() => this.prevousPage()}>Back</button>
-                <button className="continue" onClick={() => this.setPage("manager form")}>Continue</button>
+                <Link to={"/static form"}>
+                  <button className="back" onClick={() => this.prevousPage()}>Back</button>
+                </Link>
+                <Link to={"/manager form"}>
+                  <button className="continue" onClick={() => this.setPage("manager form")}>Continue</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -1134,12 +1388,12 @@ class App extends Component {
   renderAgreementPage() {
     return (
       <div>
-        {this.renderBackButton()}
+        {/* {this.renderBackButton()} */}
         {this.renderProgressBar()}
         <div className="container">
           <div className="box">
             <h1 className="text-center">Agreement</h1>
-            <p>U agree with that by the way</p>
+            {/* <p>U agree with that by the way</p>
             <ul>
               <li>Condition 1</li>
               <li>Condition 2</li>
@@ -1159,10 +1413,15 @@ class App extends Component {
               <li>Condition 2</li>
               <li>Condition 3</li>
               <li>Condition 4</li>
-            </ul>
+            </ul> */}
+            {newLines(this.state.agreement)}
             <div className="row-padding">
-              <button className="back" onClick={() => this.prevousPage()}>Back</button>
-              <button className="continue" onClick={() => { this.setPage("static form"); this.setState({ user: 0 }); }}>Agree</button>
+              <Link to={"/email"}>
+                <button className="back" onClick={() => this.prevousPage()}>Back</button>
+              </Link>
+              <Link to={"/static form"}>
+                <button className="continue" onClick={() => { this.setPage("static form"); this.setState({ user: 0 }); }}>Agree</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -1170,7 +1429,7 @@ class App extends Component {
     );
   }
 
-  renderManagerForm() {
+  renderManagerFormPage() {
     var manager = this.state.managers[this.state.algorythms[this.state.currentAlgorythm].creator];
     var form = this.state.managerQuestions.map(question =>
       <div className="form-question">
@@ -1188,7 +1447,7 @@ class App extends Component {
 
     return (
       <div>
-        {this.renderBackButton()}
+        {/* {this.renderBackButton()} */}
         {this.renderProgressBar()}
         <div className="container">
           <div className="box">
@@ -1197,8 +1456,12 @@ class App extends Component {
               <h4 className="grey">Asked by manager ({manager.name} {manager.surname})</h4>
               {form}
               <div className="row-padding">
-                <button className="back" onClick={() => this.prevousPage()}>Back</button>
-                <button className="continue" onClick={() => this.setPage("KYC")}>Continue</button>
+                <Link to={"/dynamic form"}>
+                  <button className="back" onClick={() => this.prevousPage()}>Back</button>
+                </Link>
+                <Link to={"/kyc"}>
+                  <button className="continue" onClick={() => this.setPage("KYC")}>Continue</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -1210,14 +1473,35 @@ class App extends Component {
   renderThanksPage() {
     return(
       <div>
-        {this.renderBackButton()}
+        {/* {this.renderBackButton()} */}
         {this.renderProgressBar()}
         <div className="container">
           <div className="box">
             <h2>Thanks for your investment</h2>
             <p>By the way, u can invest more:</p>
             <div className="row-padding">
-              <button className="continue" onClick={() => this.setPage("investment")}>Invest more!</button>
+              <Link to={"/managers"}>
+                <button className="continue" onClick={() => this.setPage("managers")}>Continue</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderThanks2Page() {
+    return(
+      <div>
+        {/* {this.renderBackButton()} */}
+        {this.renderProgressBar()}
+        <div className="container">
+          <div className="box">
+            <h2>Thanks for filling forms</h2>
+            <div className="row-padding">
+              <Link to={"/accept"}>
+                <button className="continue" onClick={() => this.setPage("accept")}>Continue</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -1228,12 +1512,12 @@ class App extends Component {
   renderRegisterPage() {
     return(
       <div>
-        {this.renderBackButton()}
+        {/* {this.renderBackButton()} */}
         {this.renderProgressBar()}
         <div className="container">
           <div className="box">
             <h2>Registration page</h2>
-            <div className="row-padding">
+            {/* <div className="row-padding">
               <b>Name</b>
               <div className="row">
                 <input type="text" placeholder="John" />
@@ -1254,10 +1538,26 @@ class App extends Component {
               <div className="row">
                 <input type="password" placeholder="repeat password" />
               </div>
-            </div>
-            <div className="row-padding">
-              <button className="back" onClick={() => this.prevousPage()}>Back</button>
-              <button className="continue" onClick={() => this.setPage("agreement")}>Register</button>
+            </div> */}
+              <div className="row">
+                <b>Email</b>
+              </div>
+              <div className="row">
+                <input type="text" value={this.state.login} onChange={(event) => this.setState({ login: event.target.value })} placeholder="me@example.com" />
+              </div>
+              <div className="row">
+                <b>Password</b>
+              </div>
+              <div className="row">
+                <input type="password" value={this.state.password} onChange={(event) => this.setState({ password: event.target.value })} placeholder="password" />
+              </div>
+              <div className="row-padding">
+              <Link to={("/manager" + this.state.currentManager)}>
+                <button className="back" onClick={() => this.prevousPage()}>Back</button>
+              </Link>
+              <Link to={"/email"}>
+                <button className="continue" onClick={() => this.setPage("agreement")}>Register</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -1268,7 +1568,8 @@ class App extends Component {
   renderKYCPage() {
     return(
       <div>
-        {this.renderBackButton()}
+        {/* {this.renderBackButton()} */}
+        {this.renderProgressBar()}
         <div className="container">
           <div className="box">
             <h2>Know Your Criminals</h2>
@@ -1276,8 +1577,12 @@ class App extends Component {
               <p>by clicking send, u send this data to manager</p>
             </div>
             <div className="row-padding">
-              <button className="back" onClick={() => this.prevousPage()}>Back</button>
-              <button className="continue" onClick={() => this.setPage("accept")}>Send to manager</button>
+              <Link to={"/manager form"}>
+                <button className="back" onClick={() => this.prevousPage()}>Back</button>
+              </Link>
+              <Link to={"/thanks2"}>
+                <button className="continue" onClick={() => this.setPage("thanks2")}>Send to manager</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -1288,21 +1593,33 @@ class App extends Component {
   renderAcceptPage() {
     return(
       <div>
-        {this.renderBackButton()}
+        {/* {this.renderBackButton()} */}
         {this.renderProgressBar()}
         <div className="container">
           <div className="box">
-            <h2>Accept Smart Contract</h2>
-            <p>Smart Contract conditions</p>
-            <ul>
-              <li>U pay 5% to site</li>
-              <li>U pay 10% to manager</li>
-              <li>U'll get your money back in a month</li>
-              <li>All risks are on U!!!</li>
-            </ul>
+            <h2>Portfolio Preview</h2>
+            <div className="user-agreement">
+              <h4>User Agreement</h4>
+              <ul>
+                <li>U pay 5% to site</li>
+                <li>U pay 10% to manager</li>
+                <li>U'll get your money back in a month</li>
+                <li>All risks are on U!!!</li>
+              </ul>
+              <ul>
+                <li>U pay 5% to site</li>
+                <li>U pay 10% to manager</li>
+                <li>U'll get your money back in a month</li>
+                <li>All risks are on U!!!</li>
+              </ul>
+            </div>
             <div className="row-padding">
-              <button className="back" onClick={() => this.prevousPage()}>Back</button>
-              <button className="continue" onClick={() => this.setPage("money")}>Accept</button>
+              <Link to={"/thanks2"}>
+                <button className="back" onClick={() => this.prevousPage()}>Back</button>
+              </Link>
+              <Link to={"/money"}>
+                <button className="continue" onClick={() => this.setPage("money")}>Accept</button>
+              </Link>
             </div>
           </div>
         </div>
@@ -1313,7 +1630,7 @@ class App extends Component {
   renderMoneyPage() {
     return (
       <div>
-        {this.renderBackButton()}
+        {/* {this.renderBackButton()} */}
         {this.renderProgressBar()}
         <div className="container">
           <div className="box">
@@ -1325,11 +1642,476 @@ class App extends Component {
               0x3a8b4013eb7bb370d2fd4e2edbdaf6fd8af6a862
             </div>
             <div className="row">
-              After money is received, u can see details in your Contracts page
+              After money is received, u can see details in your Portfolios page
             </div>
             <div className="row-padding">
-              <button className="back" onClick={() => this.prevousPage()}>Back</button>
-              <button className="continue" onClick={() => this.setPage("contracts")}>Finish</button>
+              <Link to="/accept">
+                <button className="back" onClick={() => this.prevousPage()}>Back</button>
+              </Link>
+              <Link to="/portfolios">
+                <button className="continue" onClick={() => this.setPage("portfolios")}>Finish</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderManagerControlPanelPage() {
+    return (
+      <div className="container">
+        <div className="box">
+          <h2>Manager Control Panel</h2>
+          <p>В разработке</p>
+        </div>
+      </div>
+    );
+  }
+
+  renderRequestsPage() {
+    var requests = this.state.requests.slice().map((request, index) => {
+      var investor = this.state.investors[request.investor];
+      var date = new myDate(request.date);
+      var registered = new myDate(investor.registered);
+      var daysInSystem = registered.pastMonths();
+
+      return {
+        type: "request",
+        id: request.id,
+        number: "",
+        img: "investor/" + investor.img,
+        id_shown: "1000" + investor.id,
+        name: investor.name + " " + investor.surname,
+        date: date.getTime(),
+        type_shown: daysInSystem >= 6 ? "old" : "new",
+        days: registered,
+        kyc: investor.kyc ? "yes" : "no",
+        value: (request.value * this.state.currentCurrencyPrices[request.currency]).toFixed(1) + " " + this.state.currentCurrency,
+        status: request.status,
+      };
+    });
+
+    return (
+      <div>
+        <div className="long-header"></div>
+        <div className="container">
+          <div className="box">
+            <h2 className="text-center">Requests</h2>
+            <Sortable
+              listings={requests}
+              setPage={this.setPage.bind(this)}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  renderRequestPage(match) {
+    var request = this.state.requests.find(r => r.id == match.params.id);
+    var investor = this.state.investors.find(i => i.id == request.investor);
+    var name;
+    var age;
+    if (investor.kyc == "yes") {
+      name = <h4>{investor.name} {investor.surname}</h4>;
+      age = <p>{investor.age} years old</p>;
+    }
+    else {
+      name = <h4>{investor.email}</h4>;
+      age = <p>KYC unfullfilled</p>;
+    }
+
+    return (
+      <div>
+        {/* {this.renderBackButton()} */}
+        <div className="container">
+          <div className="first-tab">
+            <div className="box">
+              <div className="circle left">
+                <img src={"../investor/" + investor.img} className="avatar" />
+              </div>
+              <div className="third">
+                {name}
+                <p>New client. 1   days on platform</p>
+                {age}
+                <p>client id 50{investor.id}00{investor.id}</p>
+              </div>
+              <div className="third text-right">
+                <p>request number {this.state.currentRequest}</p>
+                <p>{request.date}</p>
+              </div>
+              <div className="row-padding">
+                <Link to={"/chat"}>
+                  <button className="continue" onClick={() => this.setPage("chat")}>Start chat</button>
+                </Link>
+              </div>
+              <p>Target value: {request.value}{request.currency}</p>
+              <p>Term 4 month</p>
+              <p>Risk profile: 25%</p>
+              <p>Target earning rate</p>
+              <div className="row-padding">
+                <Link to={"/portfoliocreation"}>
+                  <button className="continue right">Accept</button>
+                </Link>
+                <Link to={"/decline"}>
+                  <button className="back right">Decline</button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  renderPortfolioPage(match) {
+    var portfolio = this.state.portfolios.find(p => p.id == match.params.id);
+    var investor = this.state.investors.find(i => i.id == portfolio.investor);
+    var manager = this.state.managers.find(m => m.id == portfolio.manager);
+    var image = this.state.user == 0 ? <img src={"../manager/" + manager.img} className="avatar" /> : <img src={"../investor/" + investor.img} className="avatar" />;
+    var info;
+    if (this.state.user == 0)
+      info = (
+        <div>
+          <h3>Manager</h3>
+          <h4>{manager.name} {manager.surname}</h4>
+          {/* <p>New client. 1   days on platform</p> */}
+          <p>{manager.age} years old</p>
+          <p>manager id 50{manager.id}00{manager.id}</p>
+        </div>
+      );
+    else
+    info = (
+      <div>
+        <h3>Investor</h3>
+        <h4>{investor.name} {investor.surname}</h4>
+        <p>New client. 1   days on platform</p>
+        <p>{investor.age} years old</p>
+        <p>client id 50{investor.id}00{investor.id}</p>
+      </div>
+    );
+
+    return (
+      <div>
+        {/* {this.renderBackButton()} */}
+        <div className="container">
+          <div className="first-tab">
+            <div className="box">
+              <div className="circle left">
+                {image}
+              </div>
+              <div className="third">
+                {info}
+              </div>
+              <div className="row-padding">
+                <button className="continue">Start chat</button>
+              </div>
+              <p>Target value: {portfolio.value}{portfolio.currency}</p>
+              <p>Term 4 month</p>
+              <p>Risk profile: 25%</p>
+              <p>Target earning rate</p>
+              <img className="portfolio" src="../portfolio.jpg" />
+              <div className="row-padding">
+                <button className="back right" onClick={() => this.prevousPage()}>Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  renderAlgorythmsPage() {
+    var currentPage;
+    switch(this.state.currentAlgorythmsPage) {
+      case "uploaded":
+        currentPage = (
+          <div className="box">
+            <h2>Current Algorythms</h2>
+
+          </div>
+        );
+        break;
+      case "upload":
+        currentPage = (
+          <div className="box">
+            <h2>Upload Algorythms</h2>
+            <div className="row">
+              <div className="document-box">
+                <h3 className="text-center">Algorythm code</h3>
+                <div className="row">
+                  <button className="continue">UPLOAD FILE</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+        break;
+    }
+
+    return (
+      <div className="container">
+        <h1>Algorythms page</h1>
+        <div className="first-tab">
+          {currentPage}
+        </div>
+        <div className="second-tab">
+          <div className="box">
+            <button className="transactions-link" onClick={() => this.setState({ currentAlgorythmsPage: "uploaded" })}>Current Algorythms</button>
+            <button className="transactions-link" onClick={() => this.setState({ currentAlgorythmsPage: "upload" })}>Upload new</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderFAQPage() {
+    return (
+      <div className="container">
+        <div className="box">
+          <h2>FAQ</h2>
+          <p>In development</p>
+        </div>
+      </div>
+    );
+  }
+
+  renderContactPage() {
+    return (
+      <div className="container">
+        <div className="box">
+          <h2>Contact</h2>
+          <p>In development</p>
+        </div>
+      </div>
+    );
+  }
+
+  renderDeclinePage() {
+    return (
+      <div>
+        {/* {this.renderBackButton()} */}
+        <div className="container">
+          <div className="box">
+            <h3>Reason for decline</h3>
+            <div className="row-padding">
+              <label for="1">
+                <input type="checkbox" id="1" />
+                Insufficient information
+              </label>
+            </div>
+            <div className="row-padding">
+              <label for="2">
+                <input type="checkbox" id="2" />
+                Information is unacceptable
+              </label>
+            </div>
+            <div className="row-padding">
+              <label for="3">
+                <input type="checkbox" id="3" />
+                Other
+              </label>
+            </div>
+            <div className="row-padding">
+              <textarea rows="4" cols="50" placeholder="Comment">
+                {}
+              </textarea>
+            </div>
+            <div className="row-padding">
+              <Link to={"/request/" + this.state.currentRequest}>
+                <button className="back">Back</button>
+              </Link>
+              <Link to={"/requests"}>
+                <button className="continue">Submit</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  renderChatPage() {
+    return (
+      <div>
+        {/* {this.renderBackButton()} */}
+        <div className="container">
+          <div className="box">
+            <h3>Chat page</h3>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  renderUserAgreementPage() {
+    return (
+      <div>
+        <div className="container">
+          <div className="box">
+            <h3>User Agreement</h3>
+            {newLines(this.state.agreement)}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  renderEmailPage() {
+    return (
+      <div>
+        <div className="container">
+          <div className="box">
+            <h3>Confirm Email</h3>
+            <p>(Front-end can't send emails. So here is the next step without actually confirming email)</p>
+            <div className="row-padding">
+              <Link to={"/register"}>
+                <button className="back">Back</button>
+              </Link>
+              <Link to="/agreement">
+                <button className="continue">Confirm email</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderPortfolioCreationPage() {
+    var set = "USD";
+    var tokens = this.state.tokens.map((token, index) =>
+      <li>
+        <div className="number">
+          {index + 1}
+        </div>
+        <div className="check">
+          <input type="checkbox"></input>
+        </div>
+        <div className="currency">
+          {token.name}
+        </div>
+        <div className="percent">
+          <input type="number"></input>
+        </div>
+        <div className="amount">
+          0
+        </div>
+        <div className="value">
+          {set}
+        </div>
+        <div className="comments last">
+          <input type="text"></input>
+        </div>
+        <div className="analysis last">
+          <input type="text"></input>
+        </div>
+      </li>
+    );
+    var request = this.state.requests.find(r => r.id == this.state.currentRequest);
+    var investor = this.state.investors.find(i => i.id == request.investor);
+    var name;
+    var age;
+    if (investor.kyc == "yes") {
+      name = <h4>{investor.name} {investor.surname}</h4>;
+      age = <p>{investor.age} years old</p>;
+    }
+    else {
+      name = <h4>{investor.email}</h4>;
+      age = <p>KYC unfullfilled</p>;
+    }
+
+    return (
+      <div>
+        <div className="container">
+          <div className="box">
+            <h3>Portfolio Creation</h3>
+
+            <div className="circle left">
+              <img src={"../investor/" + investor.img} className="avatar" />
+            </div>
+            <div className="third">
+              {name}
+              <p>New client. 1   days on platform</p>
+              {age}
+              <p>client id 50{investor.id}00{investor.id}</p>
+            </div>
+            <div className="third text-right">
+              <p>request number {this.state.currentRequest}</p>
+              <p>{request.date}</p>
+            </div>
+            <div className="row-padding">
+              <Link to={"/chat"}>
+                <button className="continue" onClick={() => this.setPage("chat")}>Start chat</button>
+              </Link>
+            </div>
+            <p>Target value: {request.value}{request.currency}</p>
+            <p>Term 4 month</p>
+            <p>Risk profile: 25%</p>
+            <p>Target earning rate</p>
+
+            <ul className="token-listings">
+              <li className="titles">
+                <div className="number">
+                  #
+                </div>
+                <div className="check">
+                  Include
+                </div>
+                <div className="currency">
+                  Currency
+                </div>
+                <div className="percent">
+                  % in portfolio
+                </div>
+                <div className="amount">
+                  Amount
+                </div>
+                <div className="value">
+                  Value in set currency
+                </div>
+                <div className="comments last">
+                  Comments
+                </div>
+                <div className="analysis last">
+                  Analysis
+                </div>
+              </li>
+              {tokens}
+            </ul>
+          </div>
+          <div className="box">
+            <div className="row">
+              <div className="half">
+                <h4>Fee</h4>
+                <ul>
+                  <div className="row">
+                    <input type="checkbox" />
+                      С прибыли
+                  </div>
+                  <div className="row">
+                    <input type="checkbox" />
+                      С объема
+                  </div>
+                  <div className="row">
+                    <input type="checkbox" />
+                      За вход
+                  </div>
+                  <div className="row">
+                    <input type="checkbox" />
+                      За выход
+                  </div>
+                </ul>
+              </div>
+              <div className="half">
+                <h4>Frequency for recalculation</h4>
+                <input placeholder="no more than"></input>
+              </div>
+            </div>
+            <div className="row">
+              <input placeholder="Comments"></input>
+            </div>
+            <div className="row-padding">
+              <Link to="/portfolios">
+                <button className="continue right margin">Send</button>
+              </Link>
+              <button className="continue right margin">Save</button>
+              <button className="continue right margin">Load Saved form</button>
             </div>
           </div>
         </div>
@@ -1340,57 +2122,115 @@ class App extends Component {
   render() {
     document.title = "WealthMan";
 
-    var headerLinks = this.state.user == -1 ? this.state.unloggedLinks : this.state.loggedLinks;
+    const Loading = () => <div>Loading...</div>;
+
+    // const Home = Loadable({
+    //   loader: () => import('./routes/Home.js'),
+    //   loading: Loading,
+    // });
+
+    var headerLinks;
+    switch(this.state.user) {
+      case -1:
+        headerLinks = this.state.unloggedLinks;
+        break;
+      case 0:
+        headerLinks = this.state.loggedInvestorLinks;
+        break;
+      case 1:
+        headerLinks = this.state.loggedManagerLinks;
+        break;
+      case 2:
+        headerLinks = this.state.loggedSuplierLinks;
+        break;
+    }
     headerLinks = headerLinks.map(link =>
       <li className="link">
-        <button className={link == "login" || link == "invest" ? link : "link"} onClick={() => this.setPage(link)}>
+        <Link to={"/" + link} className={link == "login" || link == "invest" ? link : "link"} onClick={() => {(link == "logout" ? this.logout() : "")}}>
           {capitalize(link)}
-        </button>
+        </Link>
       </li>
     );
     var logo = this.state.user == -1 ? logoBlue : logoWhite;
 
-    var footerLinks = this.state.footerLinks.map(link =>
-      <li className="link">
-        <button className="link" onClick={() => this.setPage(link)}>
-          {capitalize(link)}
-        </button>
-      </li>
-    );
-
-    var logout = (
-      <li className="link">
-        <button className="link no-margin" onClick={() => this.logout()}>
-          Log out
-        </button>
-      </li>
-    );
+    var logButton;
+    if (this.state.user !== -1)
+      logButton = (
+        <Link to={"/"} className="login" onClick={() => this.logout()}>
+          {/* Log out */}
+        </Link>
+      );
+    else
+      logButton = (
+        <Link to={"/totallydifferentlogin"} className="login" onClick={() => this.setPage("login")}>
+          {capitalize("login")}
+        </Link>
+      );
 
     return (
-      <article className="page">
-        <header className={this.state.user == -1 ? "header transparent" : "header"}>
-          <div className="container">
-            <img src={logo} className="logo" onClick={() => (this.state.user == -1 ? this.setPage("landing") : this.setPage("my path"))}/>
-            <ul className="links right">
-              {headerLinks}
-              {this.state.user != -1 ? logout : ""}
-            </ul>
+      <Router>
+        <article className="page">
+          <header className={this.state.user == -1 ? "header transparent" : "header"}>
+            <div className="container">
+              <Link to={(this.state.user == -1 ? "/managers" : "/portfolios")}>
+                <img src={logo} className="logo"/>
+              </Link>
+              <ul className="links right">
+                {headerLinks}
+              </ul>
+            </div>
+          </header>
+          <div className="content">
+            {this.renderPage()}
           </div>
-        </header>
-        <div className="content">
-          {this.renderPage()}
-        </div>
-        <div className={this.state.user == -1 ? "footer" : "footer logged"}>
-          <div className="footer-container">
-            <ul className="links">
-              {footerLinks}
-            </ul>
-            <small>
-              By using this website, you accept our Terms of Use and Privacy Policy. Past performance is no guarantee of future results. Any historical returns, expected returns, or probability projections may not reflect actual future performance. All securities involve risk and may result in loss. Our financial planning services were designed to aid our clients in preparing for their financial futures and allow them to personalize their assumptions for their portfolios. We do not intend to represent that our financial planning guidance is based on or meant to replace a comprehensive evaluation of a client's entire personal portfolio. While the data WealthMan uses from third parties is believed to be reliable, WealthMan cannot ensure the accuracy or completeness of data provided by clients or third parties. WealthMan does not provide tax advice and does not represent in any manner that the outcomes described herein will result in any particular tax consequence. Prospective investors should confer with their personal tax advisors regarding the tax consequences based on their particular circumstances. WealthMan assumes no responsibility for the tax consequences for any investor of any transaction. Full Disclosure
-            </small>
+          <div className={this.state.user == -1 ? "footer" : "footer"}>
+            <div className="footer-container">
+              <div className={"z1" + (this.state.user != -1 ? " full" : "")}>
+                <div className="half">
+                  <div className="half">
+                    <h4>Documents</h4>
+                    <Link to={"/user agreement"}>
+                      User Agreement
+                    </Link>
+                    <a href="https://wealthman.io/faq/">FAQ</a>
+                    <a href="https://github.com/Wealthman">GitHub</a>
+                  </div>
+                  <div className="half">
+                    <h4>Community</h4>
+                    <a className="telegram" href="https://t.me/wealthman_global">Telegram</a>
+                    <a className="bitcointalk" href="https://bitcointalk.org/index.php?topic=2006205">Bitcointalk</a>
+                    <a className="facebook" href="https://www.facebook.com/WealthMan.io/">Facebook</a>
+                    <a className="instagram" href="https://www.instagram.com/wealthman.io/">Instagram</a>
+                  </div>
+                </div>
+                <div className="half">
+                  <div className="half">
+                    <h4>Blog</h4>
+                    <a className="medium" href="https://medium.com/@Wealthman">Medium</a>
+                    <a className="reddit" href="https://www.reddit.com/r/Wealthman/">Reddit</a>
+                    <a className="twitter" href="https://twitter.com/wealthman_io">Twitter</a>
+                    <a className="linkedin" href="https://www.linkedin.com/company/wealthman-io">Linkedin</a>
+                    <a className="youtube" href="https://www.youtube.com/c/wealthman">YouTube</a>
+                  </div>
+                  <div className="half">
+                    <h4>Wealthman</h4>
+                    <a href="https://wealthman.io/#about">About</a>
+                    <a href="https://wealthman.io/team/">Team</a>
+                    <a href="https://wealthman.io/contact/">Contact</a>
+                  </div>
+                </div>
+              </div>
+              <div className={"z2" + (this.state.user != -1 ? " hidden" : "")}>
+                <h4>For experts</h4>
+                {logButton}
+              </div>
+            </div>
+            <div className="row text-center white small">
+              Copyright © 2018 Wealthman. All Rights Reserved. Privacy Policy
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </Router>
     );
   }
 }
@@ -1412,14 +2252,29 @@ class LoginForm extends Component {
         <input type="text" value={this.state.login} onChange={(event) => this.setState({ login: event.target.value })} placeholder="me@example.com" />
         <b>Password</b>
         <input type="password" value={this.state.password} onChange={(event) => this.setState({ password: event.target.value })} placeholder="password" />
-        <button className="login" onClick={() => this.props.tryLogin(this.state.login, this.state.password)}>Log in</button>
+        <b>Or via</b>
+        <div className="row">
+          <button className="facebook"></button>
+          <button className="google"></button>
+        </div>
+        <Link to={"/account"}>
+          <button className="login" onClick={() => this.props.tryLogin(this.state.login, this.state.password)}>Log in</button>
+        </Link>
+        <div className="row-padding">
+          <small>Not registered yet?</small>
+          <Link to={"/register"}>Register</Link>
+        </div>
       </div>
     );
   }
 }
 
 function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+  if (string.toLowerCase() === "id")
+    return "ID";
+  if (string.toLowerCase() === "kyc")
+    return "KYC";
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function newLines(string) {
@@ -1435,6 +2290,7 @@ function newLines(string) {
 
   return <div>{paragraphs.map(paragraph => <p>{paragraph}</p>)}</div>;
 }
+
 function priceUSD(string) {
   var start = string.indexOf(".");
   var counter = 0;
@@ -1445,5 +2301,4 @@ function priceUSD(string) {
     }
   return string;
 }
-
 export default App;
