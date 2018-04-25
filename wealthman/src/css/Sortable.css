@@ -45,7 +45,7 @@ ul.sortable li button.desc::after {
   background-size: contain;
   background-repeat: no-repeat;
   opacity: .9;
-  margin: 11px 0 0 5px;
+  margin: 10px 0 0 4px;
   content: "";
   float: right;
 }
@@ -63,11 +63,11 @@ ul.sortable li * {
   line-height: 25px;
   overflow-y: auto;
   float: left;
-  margin-left: 15px;
+  margin-left: 13px;
 }
 
 ul.sortable li .number {
-  width: 30px;
+  width: 20px;
 }
 ul.sortable li .name {
   width: 100px;
@@ -102,9 +102,6 @@ ul.sortable li .kyc {
   width: 70px;
 }
 
-ul.sortable li .number {
-  width: 30px;
-}
 ul.sortable li .alg,
 ul.sortable li .instrument {
   width: 150px;
@@ -116,7 +113,7 @@ ul.sortable li .status {
   width: 100px;
 }
 ul.sortable li .cost {
-  width: 75px;
+  width: 95px;
 }
 ul.sortable li .rating {
   width: 80px;
@@ -142,7 +139,7 @@ ul.sortable li .clients {
 .last {
   float: right !important;
   text-align: right !important;
-  padding-right: 15px;
+  padding-right: 13px;
 }
 .first {
   /* margin: 0 !important; */
@@ -150,7 +147,13 @@ ul.sortable li .clients {
 .last button {
   float: right !important;
   text-align: right !important;
-  padding-right: 15px !important;
+  padding-right: 13px !important;
+}
+.last button.asc,
+.last button.desc {
+  float: right !important;
+  text-align: right !important;
+  padding-right: 0px !important;
 }
 
 a.no-margin {
