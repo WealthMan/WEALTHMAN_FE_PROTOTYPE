@@ -51,6 +51,10 @@ export default class myDate {
     var newDate = new Date(date);
     return this.dateJS.getDate() < newDate.getDate() && this.dateJS.getMonth() < newDate.getMonth() && this.dateJS.getFullYear() < newDate.getFullYear();
   }
+  sameDay(date) {
+    var newDate = new myDate(date);
+    return this.day() == newDate.day() && this.month() == newDate.month() && this.year() == newDate.year();
+  }
 
   addDay(offset) {
     this.dateJS.setDate(this.dateJS.getDate() + offset);
