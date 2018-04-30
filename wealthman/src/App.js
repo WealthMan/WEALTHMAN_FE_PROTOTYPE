@@ -29,22 +29,94 @@ class App extends Component {
       currentPortfoliosPage: "active",
       currentAlgorythmsPage: "uploaded",
 
+      showCode: false,
+      code: "print(\"hello world\");\n\nfor (int i = 0; i < 10; i++)\n\tprint(\"working...\");\n\nprint(\"Oops!\\nAll your money gone.\");\n\nreturn;",
+
       currentCurrency: "USD",
-      currentCurrencyPrices: {
-        USD: 1,
-        BTC: 6848.77,
-        ETH: 415.132,
-        XRP: 0.491838,
-        BCH: 651.954,
-        LTC: 113.974,
-      },
+      currentCurrencyPrices: [
+        {
+          name: "USD",
+          price: 1
+        }, {
+          name: "BTC",
+          price: 6848.77
+        }, {
+          name: "ETH",
+          price: 415.132
+        }, {
+          name: "XRP",
+          price: 0.491838
+        }, {
+          name: "BCH",
+          price: 651.954
+        }, {
+          name: "LTC",
+          price: 113.974
+        },
+      ],
 
       prevousPages: [],
 
-      loggedInvestorLinks: ["portfolios", "managers", "account", "logout"],
-      loggedManagerLinks: ["requests", "portfolios", "account", "algorythms", "logout"],
-      loggedSuplierLinks: ["some page"],
-      unloggedLinks: ["about us", "faq", "contact", "login"],//, "login"],//, "invest"],
+      loggedInvestorLinks: [
+        {
+          label: "portfolios",
+          link: "portfolios",
+        }, {
+          label: "managers",
+          link: "managers"
+        }, {
+          label: "account",
+          link: "account"
+        }, {
+          label: "logout",
+          link: "logout"
+        }
+      ],
+      loggedManagerLinks: [
+        {
+          label: "my requests",
+          link: "requests"
+        }, {
+          label: "portfolios",
+          link: "portfolios"
+        }, {
+          label: "account",
+          link: "account"
+        // }, {
+        //   label: "algorythms",
+        //   link: "algorythms"
+        }, {
+          label: "logout",
+          link: "logout"
+        }
+      ],
+      loggedSuplierLinks: [
+        {
+          label: "some page",
+          link: "sone"
+        }
+      ],
+      unloggedLinks: [
+        {
+          label: "about us",
+          link: "about"
+        }, {
+          label: "faq",
+          link: "faq"
+        }, {
+          label: "team",
+          link: "team"
+        }, {
+          label: "contact us",
+          link: "contact"
+        }, {
+          label: "wealthman",
+          link: ""
+        }, {
+          label: "login",
+          link: "login"
+        }
+      ],//, "login"],//, "invest"],
 
       investors: [
         {
@@ -374,7 +446,7 @@ class App extends Component {
           date: "15:16 12-11-2017",
           value: 1,
           currency: "ETH",
-          status: "revision",
+          status: "cancelled",
         },
         {
           type: "request",
@@ -384,7 +456,7 @@ class App extends Component {
           date: "15:16 10-04-2018",
           value: 10,
           currency: "BTC",
-          status: "pending",
+          status: "accepted",
         },
         {
           type: "request",
@@ -481,6 +553,41 @@ class App extends Component {
           "market_cap_usd": "4817078500.0",
         }
       ],
+
+      portfolioCurrencies: [
+        {
+          id: 0,
+          type: "currency",
+          currency: "BTC",
+          percent: 10,
+          analysis: "link.com",
+          comments: "no comments",
+        },
+        {
+          id: 1,
+          type: "currency",
+          currency: "ETH",
+          percent: 30,
+          analysis: "link.com",
+          comments: "no comments",
+        },
+        {
+          id: 2,
+          type: "currency",
+          currency: "XRP",
+          percent: 17,
+          analysis: "link.com",
+          comments: "no comments",
+        },
+        {
+          id: 3,
+          type: "currency",
+          currency: "BCH",
+          percent: 43,
+          analysis: "link.com",
+          comments: "no comments",
+        },
+      ],
     };
   }
 
@@ -574,6 +681,11 @@ class App extends Component {
       currentPortfoliosPage: "active",
     });
   }
+  setCurrency(event) {
+    this.setState({
+      currentCurrency: event.target.value,
+    });
+  }
   prevousPage() {
     var prevousPages = this.state.prevousPages.slice();
     if (prevousPages.length == 0)
@@ -619,7 +731,7 @@ class App extends Component {
         <Route path="/login" render={() => this.renderLoginPage()}/>
         <Route path="/totallydifferentlogin" render={() => this.renderLogin2Page()}/>
         <Route path="/account" render={() => this.renderAccountPage()}/>
-        <Route path="/about us" render={() => this.renderAboutUsPage()}/>
+        <Route path="/about" render={() => this.renderAboutUsPage()}/>
         <Route path="/origin" render={() => this.renderOriginPage()}/>
         <Route path="/invest" render={() => this.renderInvestPage()}/>
 
@@ -655,7 +767,8 @@ class App extends Component {
         <Route path="/decline" render={() => this.renderDeclinePage()}/>
         <Route path="/faq" render={() => this.renderFAQPage()}/>
         <Route path="/contacts" render={() => this.renderContactsPage()}/>
-        <Route path="/user agreement" render={() => this.renderUserAgreementPage()}/>
+        <Route path="/investor-ua" render={() => this.renderInvestorUserAgreementPage()}/>
+        <Route path="/manager-ua" render={() => this.renderManagerUserAgreementPage()}/>
 
         <Route path="/email" render={() => this.renderEmailPage()}/>
         <Route path="/logout" render={() => this.renderManagersPage()}/>
@@ -692,7 +805,7 @@ class App extends Component {
   renderLogin2Page() {
     return (
       <div>
-        <LoginForm title="Login for Experts" tryLogin={(login, password) => this.tryLogin(login, password)} />
+        <LoginForm title="Login for Wealth Managers" tryLogin={(login, password) => this.tryLogin(login, password)} />
         {/* <LoginForm title="Log in as Manager" tryLogin={(login, password) => this.tryLogin(login, password)} />
         <LoginForm title="Log in as Data Supplier" tryLogin={(login, password) => this.tryLogin(login, password)} /> */}
       </div>
@@ -716,22 +829,43 @@ class App extends Component {
 
   renderPortfoliosPage() {
     var currentPage;
+    var currencies = this.state.currentCurrencyPrices.map(c =>
+      <option value={c.name}>{c.name}</option>
+    );
+    var currentCurrency = this.state.currentCurrencyPrices.find(c => c.name == this.state.currentCurrency);
+    var totalValue = this.state.portfolios
+      .map(p => {
+        var price = this.state.currentCurrencyPrices.find(c => c.name == p.currency).price;
+        // return (p.value - p.cost) * price;
+        return p.value * price;
+      })
+      .reduce((a, b) => a + b);
+
     var portfolios = this.state.portfolios.map(portfolio => {
       var investor = this.state.investors.find(inv => inv.id == portfolio.investor);
       var manager = this.state.managers.find(m => m.id == portfolio.manager);
       var alg = this.state.algorythms.find(alg => alg.id == portfolio.alg);
+      var price = this.state.currentCurrencyPrices.find(c => c.name == portfolio.currency).price;
 
       return {
         type: "portfolio",
         id: portfolio.id,
         number: "",
+        number_portfolio: "1000" + portfolio.id,
+        number_smart: "23" + (portfolio.id + 3) + (portfolio.id * 2) + "7" + ((portfolio.id + 1) * 7),
         instrument: alg.name,
         profit: portfolio.profit,
-        value: (portfolio.value * this.state.currentCurrencyPrices[portfolio.currency]).toFixed(1) + " " + this.state.currentCurrency,
+        // currency: portfolio.currency,
+        // percent_portfolio: (portfolio.value * price / totalValue * 100).toFixed(1),
+        // amount: portfolio.value,
+        value: (portfolio.value * price / currentCurrency.price).toFixed(3) + " " + currentCurrency.name,
         status: portfolio.status,
         cost: portfolio.cost,
+        // analysis: "link.com",
+        // comments: "comment",
       };
     });
+
     var statistics;
 
     switch (this.state.currentPortfoliosPage) {
@@ -746,7 +880,7 @@ class App extends Component {
           </div>
         );
         break;
-      case "archive":
+      case "archived":
         currentPage = (
           <div className="box">
             <h4>Archived Portfolios</h4>
@@ -765,6 +899,40 @@ class App extends Component {
           </div>
         );
         break;
+      /* NEW ONES */
+      case "proposed":
+        currentPage = (
+          <div className="box">
+            <h4>Proposed Portfolios</h4>
+            <Sortable
+              listings={portfolios}
+              setPage={this.setPage.bind(this)}
+            />
+          </div>
+        );
+        break;
+        case "revision":
+          currentPage = (
+            <div className="box">
+              <h4>Portfolios on revision</h4>
+              <Sortable
+                listings={portfolios}
+                setPage={this.setPage.bind(this)}
+              />
+            </div>
+          );
+          break;
+          case "recalculated":
+            currentPage = (
+              <div className="box">
+                <h4>Recalculated Portfolios</h4>
+                <Sortable
+                  listings={portfolios}
+                  setPage={this.setPage.bind(this)}
+                />
+              </div>
+            );
+            break;
     }
 
     return (
@@ -776,28 +944,25 @@ class App extends Component {
               <p className="grey">Total value</p>
             </div>
             <div className="description">
-              <h2>$200.00</h2>
-              <select>
-                <option>USD</option>
-                <option>EUR</option>
-                <option>CNY</option>
-                <option>BTC</option>
-                <option>ETH</option>
+              <h2>{(totalValue / currentCurrency.price).toFixed(3) + " " + currentCurrency.name}</h2>
+              <select value={this.state.currentCurrency} onChange={this.setCurrency.bind(this)}>
+                {currencies}
               </select>
             </div>
           </div>
         </div>
         <div className="container">
-          <div className="first-tab">
-            {currentPage}
-          </div>
-          <div className="second-tab">
+          <div className="upper-tab">
             <div className="box">
-              <button className="transactions-link" onClick={() => this.setState({ currentPortfoliosPage: "active" })}>Active Portfolios</button>
-              <button className="transactions-link" onClick={() => this.setState({ currentPortfoliosPage: "archive" })}>Archived Portfolios</button>
-              <button className="transactions-link" onClick={() => this.setState({ currentPortfoliosPage: "statistics" })}>Portfolios Statistics</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentPortfoliosPage: "proposed" })}>Proposed (Initial)</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentPortfoliosPage: "active" })}>Active</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentPortfoliosPage: "revision" })}>Revision</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentPortfoliosPage: "recalculated" })}>Recalculated</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentPortfoliosPage: "archived" })}>Archived</button>
+              <button className="transactions-link" onClick={() => this.setState({ currentPortfoliosPage: "statistics" })}>Statistics</button>
             </div>
           </div>
+          {currentPage}
         </div>
       </div>
     );
@@ -1028,8 +1193,8 @@ class App extends Component {
               <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "forms" })}>Fill forms</button>
               <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "kyc" })}>Know Your Criminals</button> */}
               <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "personal" })}>Account Information</button>
-              <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "risk" })}>Risk Tollerance Profile</button>
-              <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "inv" })}>Investment goals and strategy aims</button>
+              {this.state.user == 1 ? "" : <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "risk" })}>Risk Tollerance Profile</button>}
+              {this.state.user == 1 ? "" : <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "inv" })}>Investment goals and strategy aims</button>}
               <button className="transactions-link" onClick={() => this.setState({ currentAccountPage: "kyc" })}>Detailed information (kyc)</button>
             </div>
           </div>
@@ -1043,11 +1208,18 @@ class App extends Component {
   }
 
   renderAboutUsPage() {
+    var text = "Wealthman is a decentralized platform for development, execution and marketing of wealth management service. The platform is embedded with strong antifraud features allowing autonomous robo-advisors and human-driven digital asset management services to be secure for investors.\n\nMarketplace of wealth management service with efficiency metrics.\n\nInvestment portfolio is being rebalanced by chosen wealth manager through Wealthman DApp.\n\nManaged assets could be observed and accessed by private key at any time."
     return (
       <div className="container">
         <div className="box">
           <h2>About us</h2>
-          <p>whitepaper and so on</p>
+          <p>{newLines(text)}</p>
+          <h4>High competency</h4>
+          <p>Wealthman evaluates the degree to which the robo-advisors and wealth managers meet objectives set by investors. Ranking based on such findings makes service effectiveness transparent and motivates the demand for quality. Competition lead to the benefit of the quality of wealth management service</p>
+          <h4>Assets security</h4>
+          <p>Wealthman embedded with strong antifraud desing, that protects against deception. Decentralized service execution and assets storage eliminate capital risks caused by errors/vulnerability of central party.</p>
+          <h4>Trustless</h4>
+          <p>Being decentralized, Wealthman wins in situations where there is lack of trust of investor in wealth manager’s competency, honesty, and infrastructure reliability.</p>
         </div>
       </div>
     );
@@ -1174,7 +1346,7 @@ class App extends Component {
               <div className="cover"></div>
               <div className="info">
                 <div className="circle">
-                  <img src={manager.img} className="avatar" />
+                  <img src={"manager/" + manager.img} className="avatar" />
                 </div>
                 <h2 className="text-center">{manager.name} {manager.surname}</h2>
                 <h4 className="text-center">Age {manager.age}</h4>
@@ -1247,7 +1419,7 @@ class App extends Component {
           <div className="second-tab">
             <div className="box">
               <div className="circle left">
-                <img src={"companies/" + company.img} className="avatar" />
+                <img src={"manager/companies/" + company.img} className="avatar" />
               </div>
               <div className="row">
                 <p className="blue">Company</p>
@@ -1591,14 +1763,55 @@ class App extends Component {
   }
 
   renderAcceptPage() {
+    var portfolio = this.state.portfolios.find(p => p.id == this.state.currentPortfolio);
+    var totalValue = this.state.currentCurrencyPrices.find(c => c.name == portfolio.currency).price * portfolio.value;
+    var currentCurrency = this.state.currentCurrencyPrices.find(c => c.name == this.state.currentCurrency);
+    var currencies = this.state.currentCurrencyPrices.map(c =>
+      <option value={c.name}>{c.name}</option>
+    );
+    var currenciesList = this.state.portfolioCurrencies.map(currency => {
+      var price = this.state.currentCurrencyPrices.find(c => c.name == currency.currency).price;
+
+      return {
+        id: currency.id,
+        type: currency.type,
+        number: "",
+        currency: currency.currency,
+        percent_portfolio: currency.percent,
+        amount: (currency.percent / 100 * totalValue / price).toFixed(3),
+        value: (currency.percent / 100 * totalValue / currentCurrency.price).toFixed(3) + " " + currentCurrency.name,
+        analysis: currency.analysis,
+        comments: currency.comments,
+      };
+    });
+
     return(
       <div>
         {/* {this.renderBackButton()} */}
         {this.renderProgressBar()}
+        <div className="second-header">
+          <div className="container">
+            <div className="title">
+              <h2>Porfolio</h2>
+              <p className="grey">Total value</p>
+            </div>
+            <div className="description">
+              <h2>{(totalValue / currentCurrency.price).toFixed(3) + " " + currentCurrency.name}</h2>
+              <select value={this.state.currentCurrency} onChange={this.setCurrency.bind(this)}>
+                {currencies}
+              </select>
+            </div>
+          </div>
+        </div>
         <div className="container">
           <div className="box">
             <h2>Portfolio Preview</h2>
-            <div className="user-agreement">
+            <Sortable
+              listings={currenciesList}
+              setPage={this.setPage.bind(this)}
+            />
+
+            {/* <div className="user-agreement">
               <h4>User Agreement</h4>
               <ul>
                 <li>U pay 5% to site</li>
@@ -1612,7 +1825,8 @@ class App extends Component {
                 <li>U'll get your money back in a month</li>
                 <li>All risks are on U!!!</li>
               </ul>
-            </div>
+            </div> */}
+
             <div className="row-padding">
               <Link to={"/thanks2"}>
                 <button className="back" onClick={() => this.prevousPage()}>Back</button>
@@ -1636,13 +1850,32 @@ class App extends Component {
           <div className="box">
             <h2>Send Money</h2>
             <div className="row">
-              transfer 1 ETH to this address
+              <button className="show-code" onClick={() => this.setState({showCode: !this.state.showCode})}>{this.state.showCode ? "Hide" : "Show"} Smart-contract code</button>
+              <div className={"code-container " + (this.state.showCode ? "show" : "hide")}>
+                {newLines(this.state.code)}
+              </div>
             </div>
             <div className="row">
-              0x3a8b4013eb7bb370d2fd4e2edbdaf6fd8af6a862
+              <ol type="1">
+                <li>
+                  Please choose your Ethereum wallet
+                </li>
+                <li>
+                  Check that you have enough money on it to invest
+                </li>
+                <li>
+                  Copy this address of smart-contract <b className="eth-address">0x3a8b4013eb7bb370d2fd4e2edbdaf6fd8af6a862</b>
+                </li>
+                <li>
+                  Go to your Ethereum wallet and paste the address of smart-contract as destination address
+                </li>
+                <li>
+                  Submit the money transfer
+                </li>
+              </ol>
             </div>
-            <div className="row">
-              After money is received, u can see details in your Portfolios page
+            <div className="row-padding">
+              As soon as transaction is accomplished you can follow the details and statistics at <Link to={"/portfolios"}>Portfolio page</Link>
             </div>
             <div className="row-padding">
               <Link to="/accept">
@@ -1681,13 +1914,13 @@ class App extends Component {
         id: request.id,
         number: "",
         img: "investor/" + investor.img,
-        id_shown: "1000" + investor.id,
+        // id_shown: "1000" + investor.id,
         name: investor.name + " " + investor.surname,
         date: date.getTime(),
-        type_shown: daysInSystem >= 6 ? "old" : "new",
-        days: registered,
-        kyc: investor.kyc ? "yes" : "no",
-        value: (request.value * this.state.currentCurrencyPrices[request.currency]).toFixed(1) + " " + this.state.currentCurrency,
+        // type_shown: daysInSystem >= 6 ? "old" : "new",
+        // days: registered,
+        // kyc: investor.kyc ? "yes" : "no",
+        // value: (request.value * this.state.currentCurrencyPrices[request.currency]).toFixed(1) + " " + this.state.currentCurrency,
         status: request.status,
       };
     });
@@ -1790,30 +2023,69 @@ class App extends Component {
       </div>
     );
 
+    var totalValue = this.state.currentCurrencyPrices.find(c => c.name == portfolio.currency).price * portfolio.value;
+    var currentCurrency = this.state.currentCurrencyPrices.find(c => c.name == this.state.currentCurrency);
+    var currencies = this.state.currentCurrencyPrices.map(c =>
+      <option value={c.name}>{c.name}</option>
+    );
+    var currenciesList = this.state.portfolioCurrencies.map(currency => {
+      var price = this.state.currentCurrencyPrices.find(c => c.name == currency.currency).price;
+
+      return {
+        id: currency.id,
+        type: currency.type,
+        number: "",
+        currency: currency.currency,
+        percent_portfolio: currency.percent,
+        amount: (currency.percent / 100 * totalValue / price).toFixed(3),
+        value: (currency.percent / 100 * totalValue / currentCurrency.price).toFixed(3) + " " + currentCurrency.name,
+        analysis: currency.analysis,
+        comments: currency.comments,
+      };
+    });
+
     return (
       <div>
+        <div className="second-header">
+          <div className="container">
+            <div className="title">
+              <h2>Porfolio</h2>
+              <p className="grey">Total value</p>
+            </div>
+            <div className="description">
+              <h2>{(totalValue / currentCurrency.price).toFixed(3) + " " + currentCurrency.name}</h2>
+              <select value={this.state.currentCurrency} onChange={this.setCurrency.bind(this)}>
+                {currencies}
+              </select>
+            </div>
+          </div>
+        </div>
         {/* {this.renderBackButton()} */}
         <div className="container">
-          <div className="first-tab">
-            <div className="box">
-              <div className="circle left">
-                {image}
-              </div>
-              <div className="third">
-                {info}
-              </div>
-              <div className="row-padding">
-                <button className="continue">Start chat</button>
-              </div>
-              <p>Target value: {portfolio.value}{portfolio.currency}</p>
-              <p>Term 4 month</p>
-              <p>Risk profile: 25%</p>
-              <p>Target earning rate</p>
-              <img className="portfolio" src="../portfolio.jpg" />
-              <div className="row-padding">
-                <button className="back right" onClick={() => this.prevousPage()}>Delete</button>
-              </div>
+          <div className="box">
+            <div className="circle left">
+              {image}
             </div>
+            <div className="third">
+              {info}
+            </div>
+            <div className="row-padding">
+              <button className="continue">Start chat</button>
+            </div>
+            <p>Target value: {portfolio.value}{portfolio.currency}</p>
+            <p>Term 4 month</p>
+            <p>Risk profile: 25%</p>
+            <p>Target earning rate</p>
+            {/* <img className="portfolio" src="../portfolio.jpg" />
+            <div className="row-padding">
+              <button className="back right" onClick={() => this.prevousPage()}>Delete</button>
+            </div> */}
+          </div>
+          <div className="box">
+            <Sortable
+              listings={currenciesList}
+              setPage={this.setPage.bind(this)}
+            />
           </div>
         </div>
       </div>
@@ -1940,12 +2212,24 @@ class App extends Component {
       </div>
     );
   }
-  renderUserAgreementPage() {
+  renderInvestorUserAgreementPage() {
     return (
       <div>
         <div className="container">
           <div className="box">
-            <h3>User Agreement</h3>
+            <h3>Investor User Agreement</h3>
+            {newLines(this.state.agreement)}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  renderManagerUserAgreementPage() {
+    return (
+      <div>
+        <div className="container">
+          <div className="box">
+            <h3>Manager User Agreement</h3>
             {newLines(this.state.agreement)}
           </div>
         </div>
@@ -2120,7 +2404,7 @@ class App extends Component {
   }
 
   render() {
-    document.title = "WealthMan";
+    document.title = "Wealthman Platform";
 
     const Loading = () => <div>Loading...</div>;
 
@@ -2146,8 +2430,8 @@ class App extends Component {
     }
     headerLinks = headerLinks.map(link =>
       <li className="link">
-        <Link to={"/" + link} className={link == "login" || link == "invest" ? link : "link"} onClick={() => {(link == "logout" ? this.logout() : "")}}>
-          {capitalize(link)}
+        <Link to={"/" + link.link} className={link.link == "login" || link.link == "invest" ? link.link : "link"} onClick={() => {(link.link == "logout" ? this.logout() : "")}}>
+          {capitalize(link.label)}
         </Link>
       </li>
     );
@@ -2186,25 +2470,22 @@ class App extends Component {
           <div className={this.state.user == -1 ? "footer" : "footer"}>
             <div className="footer-container">
               <div className={"z1" + (this.state.user != -1 ? " full" : "")}>
-                <div className="half">
-                  <div className="half">
+                  <div className="third">
                     <h4>Documents</h4>
-                    <Link to={"/user agreement"}>
+                    <Link to={this.state.user == 1 ? "manager-ua" : "/investor-ua"}>
                       User Agreement
                     </Link>
                     <a href="https://wealthman.io/faq/">FAQ</a>
                     <a href="https://github.com/Wealthman">GitHub</a>
                   </div>
-                  <div className="half">
+                  <div className="third">
                     <h4>Community</h4>
                     <a className="telegram" href="https://t.me/wealthman_global">Telegram</a>
                     <a className="bitcointalk" href="https://bitcointalk.org/index.php?topic=2006205">Bitcointalk</a>
                     <a className="facebook" href="https://www.facebook.com/WealthMan.io/">Facebook</a>
                     <a className="instagram" href="https://www.instagram.com/wealthman.io/">Instagram</a>
                   </div>
-                </div>
-                <div className="half">
-                  <div className="half">
+                  <div className="third">
                     <h4>Blog</h4>
                     <a className="medium" href="https://medium.com/@Wealthman">Medium</a>
                     <a className="reddit" href="https://www.reddit.com/r/Wealthman/">Reddit</a>
@@ -2212,16 +2493,15 @@ class App extends Component {
                     <a className="linkedin" href="https://www.linkedin.com/company/wealthman-io">Linkedin</a>
                     <a className="youtube" href="https://www.youtube.com/c/wealthman">YouTube</a>
                   </div>
-                  <div className="half">
+                  {/* <div className="half">
                     <h4>Wealthman</h4>
                     <a href="https://wealthman.io/#about">About</a>
                     <a href="https://wealthman.io/team/">Team</a>
                     <a href="https://wealthman.io/contact/">Contact</a>
-                  </div>
-                </div>
+                  </div> */}
               </div>
               <div className={"z2" + (this.state.user != -1 ? " hidden" : "")}>
-                <h4>For experts</h4>
+                <h4>Wealth Managers</h4>
                 {logButton}
               </div>
             </div>
@@ -2281,14 +2561,16 @@ function newLines(string) {
   var paragraphs = [];
   var prevI = 0;
 
-  for (var i = 0; i < string.length; i++)
+  for (var i = 0; i < string.length; i++) {
     if (string[i] === '\n') {
       paragraphs.push(string.slice(prevI, i));
       prevI = i;
     }
+  }
   paragraphs.push(string.slice(prevI));
+  var style = {color: "inherit", fontFamily: "inherit"};
 
-  return <div>{paragraphs.map(paragraph => <p>{paragraph}</p>)}</div>;
+  return <div style={style}>{paragraphs.map(paragraph => <p style={style}>{paragraph}</p>)}</div>;
 }
 
 function priceUSD(string) {

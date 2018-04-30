@@ -12,6 +12,9 @@ class Sortable extends Component {
       sortBy: "",
       order: true,
       titles: [],
+      name: "",
+      date: "",
+      status: "status",
     }
   }
   componentDidMount() {
@@ -48,6 +51,12 @@ class Sortable extends Component {
         case "id_shown":
           className = "id";
           break;
+        case "number_portfolio":
+          className = "number-portfolio";
+          break;
+        case "number_smart":
+          className = "number-smart";
+          break;
         default:
           className = dasherize(title.toLowerCase());
           break;
@@ -79,6 +88,18 @@ class Sortable extends Component {
           return (
             <div className={("days" + firstLast)}>
               {days.pastNice()}
+            </div>
+          );
+        case "status":
+          return (
+            <div className={("status" + firstLast)}>
+              <p className={listing.status}>{listing.status}</p>
+            </div>
+          );
+        case "percent_portfolio":
+          return (
+            <div className={("percent-portfolio" + firstLast)}>
+              {listing.percent_portfolio}
             </div>
           );
         default:
@@ -134,6 +155,15 @@ class Sortable extends Component {
         case "clients":
           shownTitle = "Number of clients";
           break;
+        case "percent_portfolio":
+          shownTitle = "% in portfolio";
+          break;
+        case "number_portfolio":
+          shownTitle = "portfolio";
+          break;
+        case "number_smart":
+          shownTitle = "smart-contract";
+          break;
         default:
           shownTitle = capitalize(title);
           break;
@@ -146,6 +176,15 @@ class Sortable extends Component {
           break;
         case "id_shown":
           className = "id";
+          break;
+        case "percent_portfolio":
+          className = "percent-portfolio";
+          break;
+        case "number_portfolio":
+          className = "number-portfolio";
+          break;
+        case "number_smart":
+          className = "number-smart";
           break;
         default:
           className = dasherize(title.toLowerCase());
@@ -183,7 +222,29 @@ class Sortable extends Component {
   }
 
   render() {
-    var listings = this.props.listings.sort((a, b) => {
+    var listings = this.props.listings
+    .filter(listing => {
+      if (listing.hasOwnProperty("name"))
+        return listing.name.toLowerCase().includes(this.state.name.toLowerCase());
+      if (listing.hasOwnProperty("instrument"))
+        return listing.instrument.toLowerCase().includes(this.state.name.toLowerCase());
+      if (listing.hasOwnProperty("currency"))
+        return listing.currency.toLowerCase().includes(this.state.name.toLowerCase());
+      return true;
+    })
+    .filter(listing => {
+      if (listing.hasOwnProperty("date") && this.state.date !== "") {
+        var selectedDate = new myDate(this.state.date);
+        return selectedDate.sameDay(listing.date);
+      }
+      return true;
+    })
+    .filter(listing => {
+      if (listing.type == "request" && this.state.status !== "status")
+        return listing.status == this.state.status;
+      return true;
+    })
+    .sort((a, b) => {
       var sortBy = this.state.sortBy;
 
       switch(sortBy) {
@@ -216,11 +277,30 @@ class Sortable extends Component {
       // }
     }).map((listing, index) => this.renderListing(listing, index));
 
+    var search = (
+      <article className="search">
+        <input value={this.state.name} onChange={(event) => this.setState({ name: event.target.value })} placeholder="Search..." />
+      </article>
+    );
+    var dateSearch = <input type="date" value={this.state.date} onChange={(event) => this.setState({ date: event.target.value })} />;
+    var statusSearch = (
+      <select value={this.state.status} onChange={(event) => this.setState({ status: event.target.value })}>
+        {["status", "cancelled", "declined", "accepted", "pending"].map(status => <option><p className={status}>{status}</p></option>)}
+      </select>
+    );
+
     return (
-      <ul className="sortable">
-        {this.renderTitles()}
-        {listings}
-      </ul>
+      <div>
+        <div className="search-container">
+          {this.props.listings[0].type !== "portfolio" ? search : ""}
+          {this.state.titles.includes("date") ? dateSearch : ""}
+          {this.state.titles.includes("status") && this.props.listings[0].type == "request" ? statusSearch : ""}
+        </div>
+        <ul className="sortable">
+          {this.renderTitles()}
+          {listings}
+        </ul>
+      </div>
     );
   }
 }
