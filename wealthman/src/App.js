@@ -14,7 +14,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: 1,
+      user: -1,
       login: "",
       password: "",
 
@@ -59,6 +59,9 @@ class App extends Component {
 
       loggedInvestorLinks: [
         {
+          label: "my requests",
+          link: "requests"
+        }, {
           label: "portfolios",
           link: "portfolios",
         }, {
@@ -111,7 +114,7 @@ class App extends Component {
           link: "contact"
         }, {
           label: "wealthman",
-          link: ""
+          link: "https://wealthman.io/"
         }, {
           label: "login",
           link: "login"
@@ -333,25 +336,28 @@ class App extends Component {
 
       staticQuestions: [
         {
-          type: "",
-          question: "What is your primary reason for investing?",
-          answers: ["General Savings", "Retirement", "Colledge savings", "Other"]
-        },
-        {
           question: "What is your current age?",
           answers: ["18-24", "25-32", "33-46", "47-54", "55 or older"]
-        },
-        {
-          question: "What is your pre-tax income?",
-          answers: ["100-500$", "500-1000$", "1000-5000$", "5000-10000$", "10000-100000$", "100000$ or more"]
         },
         {
           question: "What of the following best describes your household?",
           answers: ["Single income, no dependents", "Single income, at least one dependent", "Dual income, no dependents", "Dual income, at least one dependent", "Retired or financially independent"]
         },
         {
+          question: "What is your primary reason for investing?",
+          answers: ["General Savings", "Retirement", "Colledge savings", "Other"]
+        },
+        {
+          question: "What is your annual pre-tax income?",
+          answers: ["100-500$", "501-1000$", "1001-5000$", "5001-10000$", "10001-100000$", "100001$ or more"]
+        },
+        {
           question: "What is the total value of your cash in liquid investments?",
-          answers: ["100-500$", "500-1000$", "1000-5000$", "5000-10000$", "10000-100000$", "100000$ or more"]
+          answers: ["100-500$", "501-1000$", "1001-5000$", "5001-10000$", "10001-100000$", "100001$ or more"]
+        },
+        {
+          question: "What is the total amount of money you want to invest?",
+          answers: ["100-500$", "501-1000$", "1001-5000$", "5001-10000$", "10001-100000$", "100001$ or more"]
         },
         {
           question: "When deciding how to invest your money, wich do you care about more?",
@@ -360,10 +366,6 @@ class App extends Component {
         {
           question: "The global stock market is often volatile. If your entire investement portfolio lost 10% of its value in a month during a market decline, what would you do?",
           answers: ["Sell all of your investments", "Sell some", "Keep all", "Buy more"]
-        },
-        {
-          question: "What is the total value of your cash in liquid investments?",
-          answers: ["100-500$", "500-1000$", "1000-5000$", "5000-10000$", "10000-100000$", "100000$ or more"]
         },
       ],
       dynamicQuestions: [
@@ -588,6 +590,130 @@ class App extends Component {
           comments: "no comments",
         },
       ],
+      coreTeam: [
+        {
+          name: "Andrei",
+          surname: " Huseu",
+          position: "CEO",
+        },
+        {
+          name: "Olga",
+          surname: "Pershina",
+          position: "CFO",
+        },
+        {
+          name: "Maya",
+          surname: "Epstein",
+          position: "Developer team Lead",
+        },
+        {
+          name: "Dmitriy",
+          surname: "Tyagunov",
+          position: "Development team Manager",
+        },
+        {
+          name: "Denis",
+          surname: "Kus",
+          position: "Software engineer manager",
+        },
+        {
+          name: "Anton",
+          surname: "Borzenko",
+          position: "Blockchain architect Developer",
+        },
+        {
+          name: "Lev",
+          surname: "Vasilyev",
+          position: "Front-end Developer",
+        },
+        {
+          name: "Alexander",
+          surname: "Bayov",
+          position: "Head of Strategy",
+        },
+        {
+          name: "Eugene",
+          surname: "Matushkin",
+          position: "Legal team Lead",
+        },
+        {
+          name: "Ivan",
+          surname: "Timshin",
+          position: "Senior Lawyer",
+        },
+        {
+          name: "Nikita",
+          surname: "Tepikin",
+          position: "Lawyer for intellectual property",
+        },
+        {
+          name: "Irina",
+          surname: "Voronina",
+          position: "Project Manager",
+        },
+        {
+          name: "Elena",
+          surname: "Ruzova",
+          position: "Junior project Manager",
+        },
+      ],
+      advisory: [
+        {
+          name: "David",
+          surname: "Drake",
+          position: "Wealth management & Investment Advisor",
+        },
+        {
+          name: "Alexey",
+          surname: "Gusev",
+          position: "Expert-mentor on Private banking & IT-security",
+        },
+        {
+          name: "Kate",
+          surname: "Korolkevich",
+          position: "Lifestyle & IR Advisor",
+        },
+        {
+          name: "Paulius",
+          surname: "Stankevicius",
+          position: "Global PR Advisor",
+        },
+        {
+          name: "Kirill",
+          surname: "Razgulyaev",
+          position: "Blockchain and cryptography Advisor",
+        },
+        {
+          name: "Dmitriy",
+          surname: "Khan",
+          position: "Technical architecture Advisor",
+        },
+        {
+          name: "Nikita",
+          surname: "Harchev",
+          position: "Strategy Advisor",
+        },
+        {
+          name: "Roman",
+          surname: "Lvov",
+          position: "Expert-Mentor, Real estate-based assets Advisor",
+        },
+        {
+          name: "Victor",
+          surname: "Pivtorak",
+          position: "Risk-management Advisor",
+        },
+        {
+          name: "Ivan",
+          surname: "Korolev",
+          position: "Legal Advisor - Europe & CIS",
+        },
+        {
+          name: "Juliana",
+          surname: "Vorono",
+          position: "Data Privacy & Agility Advisor",
+        },
+      ],
     };
   }
 
@@ -713,9 +839,9 @@ class App extends Component {
     );
   }
   renderProgressBar() {
-    var pages = ["register", "agreement", "static form", "dynamic form", "manager form", "kyc", "thanks2", "accept", "money"];
-    var progress = pages.indexOf(this.state.currentPage.toLowerCase()) + 1;
-    var total = pages.length;
+    var pages = ["register", "email", "agreement", "static form", "dynamic form", "manager form", "kyc", "thanks2", "accept", "signagreement", "money"];
+    var progress = pages.indexOf(this.state.currentPage.toLowerCase()) + 2;
+    var total = pages.length + 1;
 
     return (
       <div className="progress-bar">
@@ -736,7 +862,6 @@ class App extends Component {
         <Route path="/invest" render={() => this.renderInvestPage()}/>
 
         <Route path="/legal" render={() => this.renderLegalPage()}/>
-        <Route path="/contacts" render={() => this.renderContactsPage()}/>
         <Route path="/methodology" render={() => this.renderMethodologyPage()}/>
         <Route path="/press" render={() => this.renderPressPage()}/>
         <Route path="/help center" render={() => this.renderHelpCenterPage()}/>
@@ -766,7 +891,8 @@ class App extends Component {
         <Route path="/chat" render={() => this.renderChatPage()}/>
         <Route path="/decline" render={() => this.renderDeclinePage()}/>
         <Route path="/faq" render={() => this.renderFAQPage()}/>
-        <Route path="/contacts" render={() => this.renderContactsPage()}/>
+        <Route path="/team" render={() => this.renderTeamPage()}/>
+        <Route path="/contact" render={() => this.renderContactPage()}/>
         <Route path="/investor-ua" render={() => this.renderInvestorUserAgreementPage()}/>
         <Route path="/manager-ua" render={() => this.renderManagerUserAgreementPage()}/>
 
@@ -774,6 +900,7 @@ class App extends Component {
         <Route path="/logout" render={() => this.renderManagersPage()}/>
 
         <Route path="/portfoliocreation" render={() => this.renderPortfolioCreationPage()}/>
+        <Route path="/signagreement" render={() => this.renderSignAgreementPage()}/>
       </Switch>
     );
   }
@@ -860,7 +987,7 @@ class App extends Component {
         // amount: portfolio.value,
         value: (portfolio.value * price / currentCurrency.price).toFixed(3) + " " + currentCurrency.name,
         status: portfolio.status,
-        cost: portfolio.cost,
+        cost: (portfolio.cost * price / currentCurrency.price).toFixed(3) + " " + currentCurrency.name,
         // analysis: "link.com",
         // comments: "comment",
       };
@@ -1220,6 +1347,8 @@ class App extends Component {
           <p>Wealthman embedded with strong antifraud desing, that protects against deception. Decentralized service execution and assets storage eliminate capital risks caused by errors/vulnerability of central party.</p>
           <h4>Trustless</h4>
           <p>Being decentralized, Wealthman wins in situations where there is lack of trust of investor in wealth manager’s competency, honesty, and infrastructure reliability.</p>
+          <h4>Our vision</h4>
+          <p>In our long-term vision WealthMan is the most intelligent, safest and fastest platform for wealth management that gains accepted industry-wide. It is our belief that decentralized autonomous robo-advisors based on smart contracts will dislodge centralized robo-advisors and human-driven wealth management service. Registers of global assets will be decentralized. Thus, the decentralized robo-advisors will dominate the market of wealth management services.</p>
         </div>
       </div>
     );
@@ -1255,16 +1384,6 @@ class App extends Component {
           <p>bla-bla-bla</p>
           <h3>Taxes</h3>
           <p>bla-bla-bla</p>
-        </div>
-      </div>
-    );
-  }
-
-  renderContactsPage() {
-    return (
-      <div className="container">
-        <div className="box">
-          <h2 className="text-center">Our contacts</h2>
         </div>
       </div>
     );
@@ -1364,7 +1483,6 @@ class App extends Component {
               </div>
             </div>
 
-            <div className="row-padding">
               <div className="box">
                 <h4>Fees</h4>
                 {/* <p>Manager will ask you to agree with</p>
@@ -1383,9 +1501,7 @@ class App extends Component {
                 </ul> */}
                 {manager.terms}
               </div>
-            </div>
 
-            <div className="row-padding">
               <div className="box margin-right row">
                 <div className="third">
                   <p className="blue">Social networks:</p>
@@ -1413,7 +1529,6 @@ class App extends Component {
                   <button className="linkedin"></button>
                 </div>
               </div>            */}
-            </div>
 
           </div>
           <div className="second-tab">
@@ -1601,6 +1716,42 @@ class App extends Component {
     );
   }
 
+  renderSignAgreementPage() {
+    return (
+      <div>
+        {this.renderProgressBar()}
+        <div className="container">
+          <div className="box">
+            <div className="container">
+              <h2>Sign Agreement</h2>
+              <p>Please download and fill this form. Then scan and upload it back to the site.</p>
+              <div className="document-box">
+                <h3 className="text-center">Agreement form</h3>
+                <div className="row">
+                  <button className="continue">DOWNLOAD FILE</button>
+                </div>
+              </div>
+              <div className="document-box">
+                <h3 className="text-center">Filled Agreement form</h3>
+                <div className="row">
+                  <button className="continue">UPLOAD FILE</button>
+                </div>
+              </div>
+              <div className="row-padding">
+                <Link to={"/accept"}>
+                  <button className="back" onClick={() => this.prevousPage()}>Back</button>
+                </Link>
+                <Link to={"/money"}>
+                  <button className="continue" onClick={() => this.setPage("KYC")}>Continue</button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   renderManagerFormPage() {
     var manager = this.state.managers[this.state.algorythms[this.state.currentAlgorythm].creator];
     var form = this.state.managerQuestions.map(question =>
@@ -1670,9 +1821,11 @@ class App extends Component {
         <div className="container">
           <div className="box">
             <h2>Thanks for filling forms</h2>
+            <p>Your risk profile is 4</p>
+            <p>After manager reads and accepts your request, it will appear in your Accepted Requests List</p>
             <div className="row-padding">
-              <Link to={"/accept"}>
-                <button className="continue" onClick={() => this.setPage("accept")}>Continue</button>
+              <Link to={"/requests"}>
+                <button className="continue" onClick={() => this.setPage("accept")}>Send to manager</button>
               </Link>
             </div>
           </div>
@@ -1831,7 +1984,7 @@ class App extends Component {
               <Link to={"/thanks2"}>
                 <button className="back" onClick={() => this.prevousPage()}>Back</button>
               </Link>
-              <Link to={"/money"}>
+              <Link to={"/signagreement"}>
                 <button className="continue" onClick={() => this.setPage("money")}>Accept</button>
               </Link>
             </div>
@@ -1878,7 +2031,7 @@ class App extends Component {
               As soon as transaction is accomplished you can follow the details and statistics at <Link to={"/portfolios"}>Portfolio page</Link>
             </div>
             <div className="row-padding">
-              <Link to="/accept">
+              <Link to="/signagreement">
                 <button className="back" onClick={() => this.prevousPage()}>Back</button>
               </Link>
               <Link to="/portfolios">
@@ -1904,16 +2057,20 @@ class App extends Component {
 
   renderRequestsPage() {
     var requests = this.state.requests.slice().map((request, index) => {
-      var investor = this.state.investors[request.investor];
+      var investor = this.state.user == 1 ? this.state.investors.find(i => i.id == request.investor) : this.state.managers.find(i => i.id == request.manager);
       var date = new myDate(request.date);
-      var registered = new myDate(investor.registered);
-      var daysInSystem = registered.pastMonths();
+      var registered;
+      var daysInSystem;
+      if (this.state.user == 1) {
+        registered = new myDate(investor.registered);
+        daysInSystem = registered.pastMonths();
+      }
 
       return {
         type: "request",
         id: request.id,
         number: "",
-        img: "investor/" + investor.img,
+        img: (this.state.user == 1 ? "investor/" : "manager/") + investor.img,
         // id_shown: "1000" + investor.id,
         name: investor.name + " " + investor.surname,
         date: date.getTime(),
@@ -1930,7 +2087,7 @@ class App extends Component {
         <div className="long-header"></div>
         <div className="container">
           <div className="box">
-            <h2 className="text-center">Requests</h2>
+            <h2 className="text-center">My requests</h2>
             <Sortable
               listings={requests}
               setPage={this.setPage.bind(this)}
@@ -1942,7 +2099,7 @@ class App extends Component {
   }
   renderRequestPage(match) {
     var request = this.state.requests.find(r => r.id == match.params.id);
-    var investor = this.state.investors.find(i => i.id == request.investor);
+    var investor = this.state.user == 1 ? this.state.investors.find(i => i.id == request.investor) : this.state.managers.find(i => i.id == request.manager);
     var name;
     var age;
     if (investor.kyc == "yes") {
@@ -1954,6 +2111,42 @@ class App extends Component {
       age = <p>KYC unfullfilled</p>;
     }
 
+    var buttons = request.status == "accepted" ?
+      (
+        <div className="row-padding">
+          <Link to={"/accept"}>
+            <button className="continue right">Portfolio preview</button>
+          </Link>
+        </div>
+      ) : "";
+    if (this.state.user == 0)
+      return (
+        <div>
+          <div className="container">
+            <div className="first-tab">
+              <div className="box">
+                <div className="circle left">
+                  <img src={("../manager/") + investor.img} className="avatar" />
+                </div>
+                <div className="third">
+                  <h4>{investor.name} {investor.surname}</h4>
+                </div>
+                <div className="third text-right">
+                  <p>request number {this.state.currentRequest}</p>
+                  <p>{request.date}</p>
+                  <p className={request.status}>{request.status}</p>
+                </div>
+                <div className="row-padding">
+                  <Link to={"/chat"}>
+                    <button className="continue" onClick={() => this.setPage("chat")}>Start chat</button>
+                  </Link>
+                </div>
+                {buttons}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     return (
       <div>
         {/* {this.renderBackButton()} */}
@@ -1961,7 +2154,7 @@ class App extends Component {
           <div className="first-tab">
             <div className="box">
               <div className="circle left">
-                <img src={"../investor/" + investor.img} className="avatar" />
+                <img src={("../investor/") + investor.img} className="avatar" />
               </div>
               <div className="third">
                 {name}
@@ -1993,7 +2186,45 @@ class App extends Component {
             </div>
           </div>
         </div>
-      </div>
+        <div>
+          {/* {this.renderBackButton()} */}
+          <div className="container">
+            <div className="first-tab">
+              <div className="box">
+                <div className="circle left">
+                  <img src={("../investor/") + investor.img} className="avatar" />
+                </div>
+                <div className="third">
+                  {name}
+                  <p>New client. 1   days on platform</p>
+                  {age}
+                  <p>client id 50{investor.id}00{investor.id}</p>
+                </div>
+                <div className="third text-right">
+                  <p>request number {this.state.currentRequest}</p>
+                  <p>{request.date}</p>
+                </div>
+                <div className="row-padding">
+                  <Link to={"/chat"}>
+                    <button className="continue" onClick={() => this.setPage("chat")}>Start chat</button>
+                  </Link>
+                </div>
+                <p>Target value: {request.value}{request.currency}</p>
+                <p>Term 4 month</p>
+                <p>Risk profile: 25%</p>
+                <p>Target earning rate</p>
+                <div className="row-padding">
+                  <Link to={"/portfoliocreation"}>
+                    <button className="continue right">Accept</button>
+                  </Link>
+                  <Link to={"/decline"}>
+                    <button className="back right">Decline</button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>      </div>
     );
   }
   renderPortfolioPage(match) {
@@ -2140,7 +2371,45 @@ class App extends Component {
       <div className="container">
         <div className="box">
           <h2>FAQ</h2>
-          <p>In development</p>
+          <h4>What is the future of WealthMan?</h4>
+          <p>WealthMan is a state-of-the-art wealth management platform with fast and secure transaction algorithms. Decentralized autonomous robo-advisors based on smart contracts will dislodge centralized robo-advisors and human-conducted wealth management service. Global asset registers will become digital, accounts decentralized. Thus, decentralized robo-advisors will soon dominate the market of wealth management services.</p>
+          <h4>What is the WealthMan DAO?</h4>
+          <p>It is a smart contract, in which all functions run on top of Ethereum. WealthMan DAO is used to: - manage of platform settings (remuneration, the level of the data provider's pledge, etc.); - maintain list of accepted series of data; - mint AWM tokens during token generation event; - burn AWM tokens; - store funds and tokens and transmits them based on the code (e.g. lock AWM tokens of Data Provider).</p>
+          <h4>What is the WealthMan?</h4>
+          <p>WealthMan is a decentralized platform for development and execution of autonomous Wealth Management robo-advisors. In creating the platform, we are placing particular emphasis on situations where there is no trust of investor in wealth manager’s competency and honesty, infrastructure security, and where low costs and speed of high-tech wealth management service deployment are important.  So, Wealthman is a platform that does this by building a decentralized application on top of blockchain protocol that capable to execute algorithms written on Wealthman’s proprietary built-in high-level programming language. The application allows any user to start a secure advisory service or easily develop a decentralized robot-advisor. Such services can be configured with arbitrary rules for calculating the structure of the investment portfolio on the basis of a constantly updated and insured data set, transaction execution rules and remuneration terms.</p>
+          <h3>Robo-Advisor:</h3>
+          <h4>What are the advantages of a Robo-advisor?</h4>
+          <p>Robo-advisor is a low-cost alternative to conventional advisors. By eliminating human labor, online solutions can offer the same services at a lower cost. Most robo-advisors charge an annual fee of 0.2% to 0.5% of the client's net assets value (NAV). Robo-advisors are also more accessible, being available 24/7 as long as the user has an Internet connection. Moreover, they have such advantages as: access to a human advisor, tax optimization, and portfolio rebalancing.</p>
+          <h4>What is a Robo-advisor?</h4>
+          <p>A robo-advisor is a digital instrument, which provides an automated, algorithm-driven wealth management service with little to no human supervision. Typically, robo-advisor collects information about client’s goals and financials via online survey. Then, robo-advisor  analyzes the market data and automatically manages the client's assets in accordance to client’s investment goals.</p>
+        </div>
+      </div>
+    );
+  }
+  renderTeamPage() {
+    var coreTeam = this.state.coreTeam
+    .map(member =>
+      <div className="row-padding">
+        <h6>{member.name} {member.surname}</h6>
+        <p>{member.position}</p>
+      </div>
+    );
+
+    var advisory = this.state.advisory
+    .map(member =>
+      <div className="row-padding">
+        <h6>{member.name} {member.surname}</h6>
+        <p>{member.position}</p>
+      </div>
+    );
+
+    return (
+      <div className="container">
+        <div className="box">
+          <h2>Core Team</h2>
+          {coreTeam}
+          <h2>Advisory Board</h2>
+          {advisory}
         </div>
       </div>
     );
@@ -2150,8 +2419,26 @@ class App extends Component {
     return (
       <div className="container">
         <div className="box">
-          <h2>Contact</h2>
-          <p>In development</p>
+          <h2>CONTACT US</h2>
+          <p>Follow us:</p>
+          <a className="telegram" href="https://t.me/wealthman_global">Telegram</a>
+          <a className="bitcointalk" href="https://bitcointalk.org/index.php?topic=2006205">Bitcointalk</a>
+          <a className="facebook" href="https://www.facebook.com/WealthMan.io/">Facebook</a>
+          <a className="instagram" href="https://www.instagram.com/wealthman.io/">Instagram</a>
+          <a className="medium" href="https://medium.com/@Wealthman">Medium</a>
+          <a className="reddit" href="https://www.reddit.com/r/Wealthman/">Reddit</a>
+          <a className="twitter" href="https://twitter.com/wealthman_io">Twitter</a>
+          <a className="linkedin" href="https://www.linkedin.com/company/wealthman-io">Linkedin</a>
+          <a className="youtube" href="https://www.youtube.com/c/wealthman">YouTube</a>
+          <h3>Have some questions?</h3>
+          <p>If you have any questions regarding the Wealthman project do not hesitate to contact us using the contact form! We will be glad to answer any questions about our project.</p>
+          <p>General questions: info@wealthman.io</p>
+          <p> ICO, Media\PR inquiries: office@wealthman.io</p>
+          <p>Get in touch with the Wealthman team:</p>
+          <input placeholder="Your Name" />
+          <input placeholder="Your e-mail" />
+          <input type="textarea" placeholder="Message" />
+          <button className="continue">Submit</button>
         </div>
       </div>
     );
@@ -2428,13 +2715,23 @@ class App extends Component {
         headerLinks = this.state.loggedSuplierLinks;
         break;
     }
-    headerLinks = headerLinks.map(link =>
-      <li className="link">
-        <Link to={"/" + link.link} className={link.link == "login" || link.link == "invest" ? link.link : "link"} onClick={() => {(link.link == "logout" ? this.logout() : "")}}>
-          {capitalize(link.label)}
-        </Link>
-      </li>
-    );
+    headerLinks = headerLinks.map(link => {
+      if (link.link.includes("https://"))
+        return (
+          <li className="link">
+            <a href={link.link} target="_blank" className="link">
+              {capitalize(link.label)}
+            </a>
+          </li>
+        );
+      return (
+        <li className="link">
+          <Link to={"/" + link.link} className={link.link == "login" || link.link == "invest" ? link.link : "link"} onClick={() => {(link.link == "logout" ? this.logout() : "")}}>
+            {capitalize(link.label)}
+          </Link>
+        </li>
+      );
+    });
     var logo = this.state.user == -1 ? logoBlue : logoWhite;
 
     var logButton;

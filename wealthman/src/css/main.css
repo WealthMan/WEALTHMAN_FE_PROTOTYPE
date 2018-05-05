@@ -145,7 +145,9 @@ article.page {
   border: 1px solid #e7e7ea;
   padding: 18px 24px;
   margin-bottom: 24px;
-  border-radius: 3px;
+  /* border-radius: 3px; */
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 7px;
 }
 .box p {
   margin: 10px;
@@ -705,6 +707,9 @@ option {
   width: 100%;
   /* margin-bottom: 24px; */
   overflow: auto;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 7px;
+  margin-bottom: 24px;
 }
 .manager-box .cover {
   /* background-color: #ddf0e3; */
