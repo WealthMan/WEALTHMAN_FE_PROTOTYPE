@@ -106,7 +106,7 @@ ul.sortable li .kyc {
 
 ul.sortable li .alg,
 ul.sortable li .instrument {
-  width: 180px;
+  width: 160px;
 }
 ul.sortable li .profit {
   width: 80px;
@@ -115,7 +115,7 @@ ul.sortable li .status {
   width: 170px;
 }
 ul.sortable li .cost {
-  width: 95px;
+  width: 115px;
 }
 ul.sortable li .rating {
   width: 80px;
@@ -155,7 +155,7 @@ ul.sortable li .percent-portfolio {
   width: 120px;
 }
 ul.sortable li .number-portfolio {
-  width: 80px;
+  width: 100px;
 }
 ul.sortable li .number-smart {
   width: 160px;
