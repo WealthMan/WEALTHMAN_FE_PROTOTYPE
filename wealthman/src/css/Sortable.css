@@ -21,8 +21,10 @@ ul.sortable li .circle {
 }
 
 ul.sortable li button {
-  max-width: calc(100% - 11px);
+  /* max-width: calc(100% - 11px); */
+  max-width: calc(100% - 3px);
   font-weight: 600;
+  font-size: 14px;
   color: #48a8da;
   margin: 0;
   margin-right: -15px;
@@ -53,14 +55,14 @@ ul.sortable li button.desc::after {
 
 ul.sortable li .none {
   width: 54px;
-  height: 10px;
+  min-height: 10px;
   float: left;
   margin: 0;
 }
 
 ul.sortable li * {
   color: #747386;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 25px;
   overflow-y: auto;
   float: left;
@@ -72,7 +74,7 @@ ul.sortable li .number {
   width: 20px;
 }
 ul.sortable li .name {
-  width: 200px;
+  width: 80px;
 }
 
 ul.sortable li .money {
@@ -108,9 +110,6 @@ ul.sortable li .alg,
 ul.sortable li .instrument {
   width: 160px;
 }
-ul.sortable li .profit {
-  width: 80px;
-}
 ul.sortable li .status {
   width: 170px;
 }
@@ -118,24 +117,24 @@ ul.sortable li .cost {
   width: 115px;
 }
 ul.sortable li .rating {
-  width: 80px;
+  width: 70px;
 }
 ul.sortable li .aum {
   width: 65px;
 }
 ul.sortable li .assets,
 ul.sortable li .profit {
-  width: 105px;
+  width: 80px;
 }
 ul.sortable li .initial,
 ul.sortable li .output {
-  width: 105px;
+  width: 75px;
 }
 ul.sortable li .annual {
-  width: 105px;
+  width: 95px;
 }
 ul.sortable li .clients {
-  width: 70px;
+  width: 80px;
 }
 
 
@@ -160,6 +159,13 @@ ul.sortable li .number-portfolio {
 ul.sortable li .number-smart {
   width: 160px;
 }
+ul.sortable li .aum6 {
+  width: 45px;
+}
+ul.sortable li .cart {
+  width: 90px;
+}
+
 
 .last {
   float: right !important;
