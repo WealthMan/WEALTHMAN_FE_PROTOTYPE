@@ -119,9 +119,46 @@ class Sortable extends Component {
     );
   }
   renderTitles() {
-    var titles = this.state.titles
+    var titles;
+    if (this.props.titles)
+      titles = this.props.titles.map(title => title.title);
+    else
+      titles = this.state.titles;
+
+    var upperTitles;
+    if (this.props.titles) {
+      upperTitles = this.props.titles
+      .filter(title => title.upper)
+      .map((title, index) => {
+        return (
+          <div className={title.class} title={title.tooltip}>
+            <button
+              className={this.state.sortBy == dasherize(title.title.toLowerCase()) ? (this.state.order ? "desc" : "asc") : ""}
+              onClick={() => this.setSortBy(title.title.toLowerCase())}>
+              {title.title}
+            </button>
+          </div>
+        );
+      });
+    }
+    var upperInserted = false;
+
+    titles = titles
     .filter(title => title !== "type" && title !== "id")
     .map((title, index) => {
+      if (this.props.titles && this.props.titles[index].upper)
+        if (!upperInserted)
+        {
+          upperInserted = true;
+          return (
+            <div className="upper-titles">
+              <p className="blue text-center width100">{this.props.titles[index].upper}</p>
+              {upperTitles}
+            </div>
+          );
+        }
+        else
+          return;
 
       var shownTitle;
       switch(title.toLowerCase()) {
@@ -165,35 +202,45 @@ class Sortable extends Component {
           shownTitle = "smart-contract";
           break;
         default:
-          shownTitle = capitalize(title);
+          shownTitle = this.props.titles ? title : capitalize(title);
           break;
       }
 
       var className;
-      switch(title.toLowerCase()) {
-        case "type_shown":
-          className = "type";
-          break;
-        case "id_shown":
-          className = "id";
-          break;
-        case "percent_portfolio":
-          className = "percent-portfolio";
-          break;
-        case "number_portfolio":
-          className = "number-portfolio";
-          break;
-        case "number_smart":
-          className = "number-smart";
-          break;
-        default:
-          className = dasherize(title.toLowerCase());
-          break;
-      }
+      if (this.props.titles)
+        className = this.props.titles[index].class;
+      else
+        switch(title.toLowerCase()) {
+          case "type_shown":
+            className = "type";
+            break;
+          case "id_shown":
+            className = "id";
+            break;
+          case "percent_portfolio":
+            className = "percent-portfolio";
+            break;
+          case "number_portfolio":
+            className = "number-portfolio";
+            break;
+          case "number_smart":
+            className = "number-smart";
+            break;
+          default:
+            className = dasherize(title.toLowerCase());
+            break;
+        }
 
       var firstLast = (index + 1 == this.state.titles.length - 2 ? " last" : "") + (index == 0 ? " first" : "");
+
       switch(title.toLowerCase()) {
         case "number":
+          return (
+            <div className={("number blue" + firstLast)}>
+              #
+            </div>
+          );
+        case "#":
           return (
             <div className={("number blue" + firstLast)}>
               #
@@ -203,7 +250,7 @@ class Sortable extends Component {
           return <div className={("none" + firstLast)}></div>;
         default:
           return (
-            <div className={(className + firstLast)}>
+            <div className={(className + firstLast)} title={this.props.titles ? this.props.titles[index].tooltip : ""}>
               <button
                 className={this.state.sortBy == dasherize(title.toLowerCase()) ? (this.state.order ? "desc" : "asc") : ""}
                 onClick={() => this.setSortBy(title.toLowerCase())}>
@@ -294,6 +341,7 @@ class Sortable extends Component {
         <div className="search-container">
           {this.props.listings[0].type !== "portfolio" ? search : ""}
           {this.state.titles.includes("date") ? dateSearch : ""}
+          {this.props.currencySelector}
           {this.state.titles.includes("status") && this.props.listings[0].type == "request" ? statusSearch : ""}
         </div>
         <ul className="sortable">

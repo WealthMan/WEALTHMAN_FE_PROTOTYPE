@@ -77,8 +77,8 @@ li.link {
   float: right !important;
 }
 .center {
+  float: none !important;
   margin: auto !important;
-  float: none;
 }
 .column-center {
   width: 30%;
@@ -93,6 +93,10 @@ li.link {
 }
 .text-center {
   text-align: center !important;
+}
+.blue-text {
+  color: #095074;
+  cursor: pointer;
 }
 
 /* CONTAINERS */
@@ -129,6 +133,7 @@ li.link {
 .column {
   overflow: auto;
   float: left;
+  display: table;
 }
 .info .column {
   margin-left: 218px;
@@ -167,11 +172,13 @@ article.page {
 }
 
 .login-box {
-  width: 456px;
-  margin: auto;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  padding: 48px 72px;
+  /* width: 456px; */
+  width: 355px;
+  /* margin: auto; */
+  float: left;
+  margin: 50px;
+  /* padding: 48px 72px; */
+  padding: 30px;
   background-color: white;
   border: 1px solid #e7e7ea;
   box-shadow: 0 2px 14px rgba(0,0,0,0.15);
@@ -193,7 +200,8 @@ article.page {
   outline: none;
   margin: 6px 0 24px;
 }
-.box input[type="checkbox"] {
+.box input[type="checkbox"],
+.login-box input[type="checkbox"] {
   margin-right: 6px;
 }
 label {
@@ -203,17 +211,25 @@ label {
 }
 .box input[type="textarea"] {
 }
-.login-box button.login {
+.login-box button.login,
+.login-box button.register {
   width: 100%;
   height: 40px;
   text-align: center;
   color: white;
-  background-color: #193665;
+  /* background-color: #193665; */
+  background-color: #084a6c;
   margin-top: 15px;
+}
+.login-box button.register {
+  background-color: #4cab5a;
 }
 .login-box button.login:hover {
   /* background-color: #193665; */
   background-color: #48a8da;
+}
+.login-box button.register:hover {
+  background-color: #58c468;;
 }
 .login-box small {
   margin-right: 10px;
@@ -351,6 +367,28 @@ header.header a.invest:hover {
   background-size: contain;
   position: relative;
   z-index: 4;
+}
+.footer-white {
+  width: 100%;
+  border-top: 1px solid #c2c2c2;
+}
+.footer-white a {
+  margin-right: 20px;
+  color: #505050;
+  text-decoration: none;
+}
+.footer-white a:hover {
+  color: #428bca;
+}
+.footer-white .footer-container {
+  height: auto;
+  padding: 10px 0;
+}
+.footer-white .footer-container.padding {
+  padding: 30px 0;
+}
+.border-bottom {
+  border-bottom: 1px solid #c2c2c2;
 }
 .logged {
   background-color: #f4f4f4 !important;
@@ -580,6 +618,25 @@ button.transactions-link {
 button.transactions-link:hover {
   color: #043ec8;
 }
+button.blue-link {
+  color: #747386;
+  margin: 5px;
+}
+button.blue-link.active {
+  color: #48a8da;
+  font-weight: 800;
+  text-decoration: underline;
+}
+.grey-link {
+  margin-left: 10px;
+  color: #c2c2c2;
+  text-decoration: none;
+  cursor: pointer;
+}
+.grey-link:hover {
+  color: grey;
+}
+
 .upper-tab button.transactions-link {
   width: auto;
   float: left;
@@ -894,6 +951,19 @@ p {
   visibility: hidden;
   position: absolute;
 }
+.visible {
+  visibility: visible;
+}
+.invisible {
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  display: none !important;
+}
 
 
 ul.token-listings {
@@ -1002,4 +1072,29 @@ button.show-code {
   border-radius: 0;
   overflow: hidden;
   padding: 0;
+}
+
+
+.upper-titles {
+  /* overflow-x: auto; */
+  display: table;
+  float: left;
+  margin: 0 !important;
+}
+.upper-titles p.blue {
+  border-bottom: 1px solid #e7e7ea;
+  padding-bottom: 8px;
+  margin-bottom: 8px !important;
+}
+.width100 {
+  width: 100%;
+  float: none !important;
+}
+
+
+img.graph {
+  width: 100%;
+  height: auto;
+  margin: 0 !important;
+  float: left;
 }
